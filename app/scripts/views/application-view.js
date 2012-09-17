@@ -1,4 +1,4 @@
-TeamCollaboration.applicationView = Backbone.View.extend({
+TeamCollaboration.ApplicationView = Backbone.View.extend({
 
   //template: application
 
