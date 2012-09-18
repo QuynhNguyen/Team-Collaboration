@@ -5,7 +5,11 @@ window.TeamCollaboration = {
   Views: {},
   Routers: {},
   init: function() {
-    console.log('Hello from Backbone!');
+		console.log("got here");
+    this.router = new TeamCollaboration.Router();
+		console.log("done");
+		Backbone.history.start();
+		console.log("done 2");
   }
 };
 
