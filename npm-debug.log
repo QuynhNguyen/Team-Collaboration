@@ -1,0 +1,25 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'search' ]
+2 info using npm@1.1.59
+3 info using node@v0.8.8
+4 warn Building the local index for the first time, please be patient
+5 verbose url raw /-/all
+6 verbose url resolving [ 'https://registry.npmjs.org/', './-/all' ]
+7 verbose url resolved https://registry.npmjs.org/-/all
+8 info retry registry request attempt 1 at 10:46:04
+9 http GET https://registry.npmjs.org/-/all
+10 http 200 https://registry.npmjs.org/-/all
+11 error Error: ENOENT, open '/Users/Quynh/.npm/-/all/.cache.json'
+12 error If you need help, you may report this log at:
+12 error     <http://github.com/isaacs/npm/issues>
+12 error or email it to:
+12 error     <npm-@googlegroups.com>
+13 error System Darwin 12.1.0
+14 error command "node" "/usr/local/bin/npm" "search"
+15 error cwd /Users/Quynh/Developer/WebApplication/Yeoman/TeamCollaboration
+16 error node -v v0.8.8
+17 error npm -v 1.1.59
+18 error path /Users/Quynh/.npm/-/all/.cache.json
+19 error code ENOENT
+20 error errno 34
+21 verbose exit [ 34, true ]
