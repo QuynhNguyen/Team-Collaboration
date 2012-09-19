@@ -1,6 +1,4 @@
-#Team-Collaboration
-
-##Simple and Intuitive Team Collaboration System
+##Simple and Intuitive Modern Team Collaboration System
 
 ###Description
 
