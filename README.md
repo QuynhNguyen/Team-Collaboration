@@ -2,24 +2,26 @@
 
 ###Description
 
-Simple yet beauty and easy to use modtern team collaboration workflow.
+Simple yet beauty and easy to use modern team collaboration workflow.
 
 ###Front End Technology
 
-**Backbonejs** and **Twitter Bootstrap**
+		* Backbone.js
+		* Twitter Bootstrap
 
 ###Back End Technology
 
-**Nodejs** with **Restify**
-
+		* Node.js
+				* Restify
+				
 ###Database
 
-**Mongodb**
+		* MongoDB
 
 ###Database Schema Framework
 
-**Moogoose**
+		* Mongoose
 
 ###Templating Engine
 
-**Underscorejs**
+		* Underscore.js
