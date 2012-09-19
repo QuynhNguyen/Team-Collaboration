@@ -23,11 +23,9 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
   createProject: function() {
     var projectName;
     projectName = $('#projectName').val();
-    console.log(projectName);
-    this.model = new TeamCollaboration.ProjectModel({
+    return this.model = new TeamCollaboration.ProjectModel({
       name: projectName
     });
-    return console.log(this.model);
   },
   render: function(e) {
     this.$el.html(this.template());
