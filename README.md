@@ -1,16 +1,27 @@
-Team-Collaboration
+#Team-Collaboration
 
-Simple and Intuitive Team Collaboration System
+##Simple and Intuitive Team Collaboration System
 
+###Description
 
-This applications will be built using fullstack JS
+Simple yet beauty and easy to use modtern team collaboration workflow.
 
-Front End Framework: Backbonejs and Twitter Bootstrap
+###Front End Technology
 
-Templating Engine: Underscorejs
+**Backbonejs** and **Twitter Bootstrap**
 
-Back End Framework: Nodejs with Restify
+###Back End Technology
 
-Database Schema Framework: Moogoose
+**Nodejs** with **Restify**
 
-Database: NoSql using Mongodb
+###Database
+
+**Mongodb**
+
+###Database Schema Framework
+
+**Moogoose**
+
+###Templating Engine
+
+**Underscorejs**
