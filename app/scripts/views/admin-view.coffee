@@ -16,3 +16,13 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend(
 		this.$el.html(this.template())
 		return this
 )
+
+TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
+	
+	template: _.template($('#tpl-admin-project-management-main').html())
+	
+	render: (e) ->
+		this.$el.html(this.template())
+		return this
+
+) 

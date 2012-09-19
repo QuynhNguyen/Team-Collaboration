@@ -97,18 +97,45 @@
 			</div>	
 			</div>
 		</script>
+	
 		
 		<script type="text/template" id="tpl-admin-sidebar">
-    <div class="well sidebar-nav">
-      <ul class="nav nav-list">
-        <li class="nav-header">Admin Panel</li>
-  			<li class="divider"></li>
-        <li><a href="/admin/create-users">Account Management</a></li>
-        <li><a href="/admin/create-projects">Project Management</a></li>
-      </ul>
-    </div><!--/.well -->
-			
+	    <div class="well sidebar-nav">
+	      <ul class="nav nav-list">
+	        <li class="nav-header">Admin Panel</li>
+	  			<li class="divider"></li>
+	        <li><a href="/#admin/account-management">Account Management</a></li>
+	        <li><a href="/#admin/project-management">Project Management</a></li>
+	      </ul>
+	    </div><!--/.well -->
 		</script>
+		
+		<script type="text/template" id="tpl-admin-project-management-main">
+			<div class="row-fluid">
+			<div class="span4">
+				<form method="POST">
+				  <legend>Create Project</legend>
+				  <label for"projectName">Project Name</label>
+				  <input id="projectName" type="text" placeholder="Type something…" class="span12">
+				  <span class="help-block alert alert-info">Project name must be unique</span>
+				  <button type="submit" class="btn btn-primary">Create Project</button>
+				</form>
+			</div>	
+			</div>
+		</script>
+		
+		<script type="text/template" id="tpl-admin-project-management-sidebar">
+	    <div class="well sidebar-nav">
+	      <ul class="nav nav-list">
+	        <li class="nav-header">Current Projects</li>
+	  			<li class="divider"></li>
+	        <li><a href="/#admin/account-management">Project 1</a></li>
+	        <li><a href="/#admin/project-management">Project 2</a></li>
+	      </ul>
+	    </div><!--/.well -->
+		</script>
+		
+		
 		
 		
 		

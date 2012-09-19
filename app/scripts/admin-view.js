@@ -14,3 +14,11 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend({
     return this;
   }
 });
+
+TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
+  template: _.template($('#tpl-admin-project-management-main').html()),
+  render: function(e) {
+    this.$el.html(this.template());
+    return this;
+  }
+});
