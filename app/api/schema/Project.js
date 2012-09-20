@@ -14,6 +14,8 @@
       this.name = name;
       this.project = project;
       this.Project = Project;
+      this.getProject = __bind(this.getProject, this);
+
       this.getProjectList = __bind(this.getProjectList, this);
 
       this.save = __bind(this.save, this);
@@ -57,6 +59,25 @@
         res.contentType = 'json';
         res.code = 200;
         return res.send(projects);
+      });
+    };
+
+    Project.prototype.getProject = function(res, projectName) {
+      var _this = this;
+      console.log(projectName);
+      return this.Project.find({
+        name: projectName
+      }).exec(function(err, project) {
+        console.log(project.length);
+        if (project.length <= 0) {
+          res.send({
+            error: "No Project Found Under The Name Of " + projectName
+          });
+          return res.end();
+        } else {
+          res.contentType = 'json';
+          return res.send(project);
+        }
       });
     };
 

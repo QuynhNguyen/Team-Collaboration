@@ -1,5 +1,5 @@
 mongoose = require('mongoose')
-##Testing DatabaseConnection
+##Creating DatabaseConnection
 
 exports.createMongoDBConnection = ->
 	db = mongoose.createConnection('localhost', 'TeamCollaboration')

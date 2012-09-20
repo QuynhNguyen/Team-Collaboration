@@ -25,20 +25,13 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 	
 	createProject: ->
 		projectName = $('#projectName').val()
-		console.log(projectName)
-		this.model = new TeamCollaboration.ProjectModel({name:projectName})
-		this.model.toJSON()
-		this.model.save(
-		
-			{name: projectName}
-			success: ->
-				console.log("Saved")
-			error: (mymodel, error) ->
-				console.log("error")
-				console.log(mymodel.toJSON())
-				console.log(error)
-		
-		)
+		this.model = new TeamCollaboration.ProjectModel()
+		if this.model.isNew() 
+			this.model.set({id:projectName})
+			this.model.save()
+		else 
+			console.log("Fk u")
+
 	
 	render: (e) ->
 		this.$el.html(this.template())

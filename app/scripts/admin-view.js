@@ -23,23 +23,15 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
   createProject: function() {
     var projectName;
     projectName = $('#projectName').val();
-    console.log(projectName);
-    this.model = new TeamCollaboration.ProjectModel({
-      name: projectName
-    });
-    this.model.toJSON();
-    return this.model.save({
-      name: projectName
-    }, {
-      success: function() {
-        return console.log("Saved");
-      },
-      error: function(mymodel, error) {
-        console.log("error");
-        console.log(mymodel.toJSON());
-        return console.log(error);
-      }
-    });
+    this.model = new TeamCollaboration.ProjectModel();
+    if (this.model.isNew()) {
+      this.model.set({
+        id: projectName
+      });
+      return this.model.save();
+    } else {
+      return console.log("Fk u");
+    }
   },
   render: function(e) {
     this.$el.html(this.template());

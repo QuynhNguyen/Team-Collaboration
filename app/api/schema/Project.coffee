@@ -29,6 +29,19 @@ class Project
 			res.contentType = 'json'
 			res.code = 200
 			res.send(projects)
+			
+			
+	getProject: (res, projectName) =>
+		console.log(projectName)
+		@Project.find({name:projectName}).exec( (err, project) =>
+				console.log(project.length)
+				if project.length <= 0
+					res.send({error: "No Project Found Under The Name Of #{projectName}"})
+					res.end()
+				else
+					res.contentType = 'json'
+					res.send(project)
+		)
 		
 		
 module.exports.Project = Project
