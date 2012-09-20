@@ -28,8 +28,7 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 		this.model = new TeamCollaboration.ProjectModel()
 		this.model.set({name:projectName})
 		this.model.save()
-	
-
+		$('#projectName').val("")
 	
 	render: (e) ->
 		this.$el.html(this.template())
