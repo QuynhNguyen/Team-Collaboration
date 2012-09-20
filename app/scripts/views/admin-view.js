@@ -29,6 +29,7 @@
         name: projectName
       });
       this.model.save();
+      this.collection.add(this.model);
       return $('#projectName').val("");
     },
     render: function(e) {
@@ -41,16 +42,17 @@
     template: _.template($('#tpl-admin-project-management-sidebar').html()),
     initialize: function() {
       this.$el.append(this.template());
-      return this.collection.on("reset", this.render, this);
+      this.collection.on("reset", this.render, this);
+      return this.collection.on("add", this.addProject, this);
     },
-    addAll: function(project) {
+    addProject: function(project) {
       this.projectView = new TeamCollaboration.AdminProjectView({
         model: project
       });
       return this.$el.append(this.projectView.render());
     },
     render: function() {
-      this.collection.forEach(this.addAll, this);
+      this.collection.forEach(this.addProject, this);
       return this;
     }
   });

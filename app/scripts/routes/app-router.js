@@ -25,8 +25,10 @@
       return this.renderAdminSideBar();
     },
     adminProjectManagementView: function() {
-      this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain();
       this.projectCollection = new TeamCollaboration.ProjectCollection();
+      this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({
+        collection: this.projectCollection
+      });
       this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({
         collection: this.projectCollection
       });

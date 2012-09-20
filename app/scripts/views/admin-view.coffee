@@ -32,6 +32,7 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 		this.model = new TeamCollaboration.ProjectModel()
 		this.model.set({name:projectName})
 		this.model.save()
+		this.collection.add(this.model)
 		$('#projectName').val("")
 	
 	render: (e) ->
@@ -47,13 +48,14 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 	initialize: ->
 		this.$el.append(this.template())
 		this.collection.on("reset", this.render, this)
+		this.collection.on("add", this.addProject, this)
 	
-	addAll: (project) -> 
+	addProject: (project) -> 
 		this.projectView = new TeamCollaboration.AdminProjectView({model:project})
 		this.$el.append(this.projectView.render())
 
 	render: ->
-		this.collection.forEach(this.addAll, this)
+		this.collection.forEach(this.addProject, this)
 		return this
 		
 )
