@@ -1,20 +1,22 @@
 
 TeamCollaboration.AdminMain = Backbone.View.extend({
+  el: $('#content'),
   template: _.template($('#tpl-admin-main').html()),
   render: function(e) {
-    this.$el.html(this.template());
-    return this;
+    return this.$el.html(this.template());
   }
 });
 
 TeamCollaboration.AdminSideBar = Backbone.View.extend({
+  el: $('#sidebar'),
   template: _.template($('#tpl-admin-sidebar').html()),
   render: function(e) {
-    return this.template();
+    return this.$el.html(this.template());
   }
 });
 
 TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
+  el: $('#content'),
   events: {
     "click button": "createProject"
   },
@@ -31,15 +33,15 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
     return $('#projectName').val("");
   },
   render: function(e) {
-    this.$el.html(this.template());
-    return this;
+    return this.$el.html(this.template());
   }
 });
 
 TeamCollaboration.AdminProjectListView = Backbone.View.extend({
+  el: $('#sidebar'),
   template: _.template($('#tpl-admin-project-management-sidebar').html()),
   initialize: function() {
-    this.$el.append(this.template());
+    this.$el.html(this.template());
     this.collection.on("reset", this.render, this);
     return this.collection.on("add", this.addProject, this);
   },

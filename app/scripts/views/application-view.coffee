@@ -1,8 +1,10 @@
-TeamCollaboration.ApplicationView = Backbone.View.extend(
+TeamCollaboration.ApplicationSideBarView = Backbone.View.extend(
+
+	el: $('#sidebar')
 
 	template: _.template($('#tpl-frontpage-sidebar').html())
 	
 	render: (e) ->
-		return this.template()
+		this.$el.html(this.template())
 
 )

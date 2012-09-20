@@ -7,16 +7,16 @@ TeamCollaboration.Router = Backbone.Router.extend({
   },
   initialize: function() {},
   frontpageView: function() {
-    this.frontpage = new TeamCollaboration.ApplicationView();
-    return $('#sidebar').html(this.frontpage.render());
+    this.frontPageSideBar = new TeamCollaboration.ApplicationSideBarView();
+    return this.frontPageSideBar.render();
   },
   renderAdminMain: function() {
     this.adminMain = new TeamCollaboration.AdminMain();
-    return $('#content').html(this.adminMain.render().el);
+    return this.adminMain.render();
   },
   renderAdminSideBar: function() {
     this.adminSideBar = new TeamCollaboration.AdminSideBar();
-    return $('#sidebar').html(this.adminSideBar.render());
+    return this.adminSideBar.render();
   },
   adminView: function() {
     this.renderAdminMain();
@@ -31,7 +31,7 @@ TeamCollaboration.Router = Backbone.Router.extend({
       collection: this.projectCollection
     });
     this.projectCollection.fetch();
-    $('#content').html(this.adminProjectManagementMain.render().el);
-    return $('#sidebar').html(this.adminProjectManagementSideBar.render().el);
+    this.adminProjectManagementMain.render();
+    return this.adminProjectManagementSideBar.render();
   }
 });

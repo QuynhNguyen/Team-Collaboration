@@ -11,18 +11,18 @@ TeamCollaboration.Router = Backbone.Router.extend(
 	## Front Page ##
 	
 	frontpageView: ->
-		this.frontpage = new TeamCollaboration.ApplicationView()
-		$('#sidebar').html(this.frontpage.render())
+		this.frontPageSideBar = new TeamCollaboration.ApplicationSideBarView()
+		this.frontPageSideBar.render()
 		
 	## Admin Page ##
 		
 	renderAdminMain: ->
 		this.adminMain = new TeamCollaboration.AdminMain()
-		$('#content').html(this.adminMain.render().el)
+		this.adminMain.render()
 		
 	renderAdminSideBar: ->
 		this.adminSideBar = new TeamCollaboration.AdminSideBar()
-		$('#sidebar').html(this.adminSideBar.render())
+		this.adminSideBar.render()
 		
 	adminView: ->
 		this.renderAdminMain()
@@ -33,7 +33,7 @@ TeamCollaboration.Router = Backbone.Router.extend(
 		this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({collection:this.projectCollection})
 		this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({collection:this.projectCollection})
 		this.projectCollection.fetch()
-		$('#content').html(this.adminProjectManagementMain.render().el)
-		$('#sidebar').html(this.adminProjectManagementSideBar.render().el)
+		this.adminProjectManagementMain.render()
+		this.adminProjectManagementSideBar.render()
 	
 )
