@@ -6,13 +6,29 @@
 
   projectSchema = require('./schema/Project.js');
 
-  server = restify.createServer();
+  server = restify.createServer({
+    name: "Modern Team Collaboration",
+    version: "0.0.1"
+  });
+
+  server.use(restify.acceptParser(server.acceptable));
+
+  server.use(restify.queryParser());
+
+  server.use(restify.bodyParser());
 
   postProject = function(req, res, next) {
     var project, projectName;
     projectName = req.params.name;
-    project = new projectSchema.Project(projectName);
-    return project.save(res);
+    if (projectName != null) {
+      project = new projectSchema.Project(projectName);
+      return project.save(res);
+    } else {
+      res.status(404);
+      return res.send({
+        error: "Invalid Params"
+      });
+    }
   };
 
   getProjectList = function(req, res, next) {
@@ -28,7 +44,7 @@
     return project.getProject(res, projectName);
   };
 
-  server.post('/projects/:name', postProject);
+  server.post('/projects', postProject);
 
   server.get('/projects', getProjectList);
 
