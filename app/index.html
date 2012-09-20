@@ -57,14 +57,14 @@
     <div class="container-fluid">
       <div class="row-fluid">
 				
-        <div class="span3" id="sidebar">
+        <div class="span3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Resources</li>
 			  			<li class="divider"></li>
-              <li class="active"><a href="/">Home</a></li>
-              <li><a href="https://github.com/QuynhNguyen/Team-Collaboration">Github Repository</a></li>
-              <li><a href="mailto:quynhnguyen003@gmail.com">Contact Me (Quynh Nguyen)</a></li>
+              <div id="sidebar">
+								
+							</div>	
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -89,6 +89,12 @@
 
     </div><!--/.fluid-container-->
 		
+		<script type="text/template" id="tpl-frontpage-sidebar">
+	    <li class="active"><a href="/">Home</a></li>
+	    <li><a href="https://github.com/QuynhNguyen/Team-Collaboration">Github Repository</a></li>
+	    <li><a href="mailto:quynhnguyen003@gmail.com">Contact Me (Quynh Nguyen)</a></li>
+		</script>
+		
 		<script type="text/template" id="tpl-admin-main">
 			<div>
 			<div class="hero-unit">
@@ -100,27 +106,21 @@
 	
 		
 		<script type="text/template" id="tpl-admin-sidebar">
-	    <div class="well sidebar-nav">
-	      <ul class="nav nav-list">
-	        <li class="nav-header">Admin Panel</li>
-	  			<li class="divider"></li>
-	        <li><a href="/#admin/account-management">Account Management</a></li>
-	        <li><a href="/#admin/project-management">Project Management</a></li>
-	      </ul>
-	    </div><!--/.well -->
+	    <li><a href="/#admin/account-management">Account Management</a></li>
+	    <li><a href="/#admin/project-management">Project Management</a></li>
 		</script>
 		
 		<script type="text/template" id="tpl-admin-project-management-main">
 			<div class="row-fluid">
-			<div class="span4">
-				<div>
-				  <legend>Create Project</legend>
-				  <label for"projectName">Project Name</label>
-				  <input id="projectName" type="text" placeholder="Type something…" class="span12">
-				  <span class="help-block alert alert-info">Project name must be unique</span>
-				  <button type="submit" class="btn btn-primary">Create Project</button>
-				</div>
-			</div>	
+				<div class="span4">
+					<div>
+					  <legend>Create Project</legend>
+					  <label for"projectName">Project Name</label>
+					  <input id="projectName" type="text" placeholder="Type something…" class="span12">
+					  <span class="help-block alert alert-info">Project name must be unique</span>
+					  <button type="submit" class="btn btn-primary">Create Project</button>
+					</div>
+				</div>	
 			</div>
 		</script>
 		
@@ -151,11 +151,11 @@
         <script src="scripts/vendor/backbone-min.js"></script>
         <script src="scripts/main.js"></script>
         <script src="scripts/views/application-view.js"></script>
-				<script src="scripts/admin-view.js"></script>
+				<script src="scripts/views/admin-view.js"></script>
         <script src="scripts/models/application-model.js"></script>
-				<script src="scripts/project-model.js"></script>
+				<script src="scripts/models/project-model.js"></script>
         <script src="scripts/collections/application-collection.js"></script>
-        <script src="scripts/app-router.js"></script>
+        <script src="scripts/routes/app-router.js"></script>
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

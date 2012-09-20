@@ -1,10 +1,17 @@
 TeamCollaboration.Router = Backbone.Router.extend(
 	
 	routes:
+		"": "frontpageView"
 		"admin": "adminView"
 		"admin/project-management": "adminProjectManagementView"
 		
 	initialize: ->
+		
+	## Front Page ##
+	
+	frontpageView: ->
+		this.frontpage = new TeamCollaboration.ApplicationView()
+		$('#sidebar').html(this.frontpage.render().el)
 		
 	## Admin Page ##
 		

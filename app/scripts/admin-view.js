@@ -10,6 +10,7 @@ TeamCollaboration.AdminMain = Backbone.View.extend({
 TeamCollaboration.AdminSideBar = Backbone.View.extend({
   template: _.template($('#tpl-admin-sidebar').html()),
   render: function(e) {
+    $('.nav-header').text("Administrative Tasks");
     this.$el.html(this.template());
     return this;
   }
