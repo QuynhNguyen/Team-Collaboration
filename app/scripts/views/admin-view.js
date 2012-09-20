@@ -12,9 +12,7 @@
   TeamCollaboration.AdminSideBar = Backbone.View.extend({
     template: _.template($('#tpl-admin-sidebar').html()),
     render: function(e) {
-      $('.nav-header').text("Administrative Tasks");
-      this.$el.html(this.template());
-      return this;
+      return this.template();
     }
   });
 
@@ -36,6 +34,32 @@
     render: function(e) {
       this.$el.html(this.template());
       return this;
+    }
+  });
+
+  TeamCollaboration.AdminProjectListView = Backbone.View.extend({
+    template: _.template($('#tpl-admin-project-management-sidebar').html()),
+    initialize: function() {
+      this.$el.append(this.template());
+      return this.collection.on("reset", this.render, this);
+    },
+    addAll: function(project) {
+      this.projectView = new TeamCollaboration.AdminProjectView({
+        model: project
+      });
+      return this.$el.append(this.projectView.render());
+    },
+    render: function() {
+      this.collection.forEach(this.addAll, this);
+      return this;
+    }
+  });
+
+  TeamCollaboration.AdminProjectView = Backbone.View.extend({
+    template: _.template($('#tpl-project').html()),
+    render: function(e) {
+      console.log(this.model);
+      return this.template(this.model.toJSON());
     }
   });
 

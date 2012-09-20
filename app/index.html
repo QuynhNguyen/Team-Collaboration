@@ -59,12 +59,9 @@
 				
         <div class="span3">
           <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Resources</li>
-			  			<li class="divider"></li>
-              <div id="sidebar">
-								
-							</div>	
+            <ul class="nav nav-list" id="sidebar">
+              
+              
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
@@ -90,6 +87,8 @@
     </div><!--/.fluid-container-->
 		
 		<script type="text/template" id="tpl-frontpage-sidebar">
+   	 	<li class="nav-header">Resources</li>
+			<li class="divider"></li>
 	    <li class="active"><a href="/">Home</a></li>
 	    <li><a href="https://github.com/QuynhNguyen/Team-Collaboration">Github Repository</a></li>
 	    <li><a href="mailto:quynhnguyen003@gmail.com">Contact Me (Quynh Nguyen)</a></li>
@@ -106,6 +105,8 @@
 	
 		
 		<script type="text/template" id="tpl-admin-sidebar">
+    	<li class="nav-header">Adminstrative Tasks</li>
+			<li class="divider"></li>
 	    <li><a href="/#admin/account-management">Account Management</a></li>
 	    <li><a href="/#admin/project-management">Project Management</a></li>
 		</script>
@@ -125,14 +126,12 @@
 		</script>
 		
 		<script type="text/template" id="tpl-admin-project-management-sidebar">
-	    <div class="well sidebar-nav">
-	      <ul class="nav nav-list">
-	        <li class="nav-header">Current Projects</li>
-	  			<li class="divider"></li>
-	        <li><a href="/#admin/account-management">Project 1</a></li>
-	        <li><a href="/#admin/project-management">Project 2</a></li>
-	      </ul>
-	    </div><!--/.well -->
+	    <li class="nav-header">Project List</li>
+			<li class="divider"><li>
+		</script>
+		
+		<script type="text/template" id="tpl-project">
+			<li><%= name %></li>
 		</script>
 		
 		
@@ -155,6 +154,7 @@
         <script src="scripts/models/application-model.js"></script>
 				<script src="scripts/models/project-model.js"></script>
         <script src="scripts/collections/application-collection.js"></script>
+				<script src="scripts/collections/project-collection.js"></script>
         <script src="scripts/routes/app-router.js"></script>
         <!-- endbuild -->
 

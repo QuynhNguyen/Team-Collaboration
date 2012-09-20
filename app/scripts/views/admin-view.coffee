@@ -1,3 +1,5 @@
+##ADMIN MAIN PAGE
+
 TeamCollaboration.AdminMain = Backbone.View.extend(
 
 	template: _.template($('#tpl-admin-main').html())
@@ -12,10 +14,11 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend(
 	template: _.template($('#tpl-admin-sidebar').html())
 	
 	render: (e) ->
-		$('.nav-header').text("Administrative Tasks")
-		this.$el.html(this.template())
-		return this
+		return this.template()
 )
+
+
+##ADMIN PROJECT MANAGEMENT
 
 TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 
@@ -35,3 +38,31 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 		this.$el.html(this.template())
 		return this
 ) 
+
+
+TeamCollaboration.AdminProjectListView = Backbone.View.extend(
+	
+	template: _.template($('#tpl-admin-project-management-sidebar').html())
+	
+	initialize: ->
+		this.$el.append(this.template())
+		this.collection.on("reset", this.render, this)
+	
+	addAll: (project) -> 
+		this.projectView = new TeamCollaboration.AdminProjectView({model:project})
+		this.$el.append(this.projectView.render())
+
+	render: ->
+		this.collection.forEach(this.addAll, this)
+		return this
+		
+)
+
+TeamCollaboration.AdminProjectView = Backbone.View.extend(
+	
+	template: _.template($('#tpl-project').html())
+
+	render: (e) ->
+		console.log(this.model)
+		return this.template(this.model.toJSON())
+)
