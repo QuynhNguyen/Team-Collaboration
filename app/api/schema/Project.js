@@ -36,7 +36,7 @@
 
     Project.prototype.save = function(res) {
       var _this = this;
-      return this.project.save(function(err) {
+      return this.project.save(function(err, proj) {
         if (err) {
           console.log("error saving project");
           res.contentType = 'json';

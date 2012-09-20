@@ -119,7 +119,7 @@
 					  <label for"projectName">Project Name</label>
 					  <input id="projectName" type="text" placeholder="Type something…" class="span12">
 					  <span class="help-block alert alert-info">Project name must be unique</span>
-					  <button type="submit" class="btn btn-primary">Create Project</button>
+					  <button id="createProject" class="btn btn-primary">Create Project</button>
 					</div>
 				</div>	
 			</div>
@@ -131,7 +131,24 @@
 		</script>
 		
 		<script type="text/template" id="tpl-project">
-			<li ><a href="#"><%= name %> <i class="icon-chevron-right pull-right"></i> </a> </li>
+			<li class="projectName" data-id="<%= _id %>"><a><%= name %> <i class="icon-chevron-right pull-right"></i> </a> </li>
+		</script>
+		
+		
+		<script type="text/template" id="tpl-edit-project">
+			<div class="row-fluid">
+				<div class="span4">
+					<div>
+					  <legend>Edit Project</legend>
+					  <label for"projectName">Project ID</label>
+					  <input id="projectName" type="text" placeholder="<%= _id %>" class="span12" disabled>
+					  <label for"projectName">Project Name</label>
+					  <input id="projectName" type="text" placeholder="<%= name %>" class="span12">
+					  
+					  <button type="submit" class="btn btn-primary" id="updateProject">Update Project</button> <button type="submit" class="btn btn-danger" id="updateProject">Delete Project</button>
+					</div>
+				</div>	
+			</div>
 		</script>
 		
 		

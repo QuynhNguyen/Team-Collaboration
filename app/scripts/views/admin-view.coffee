@@ -26,17 +26,22 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend(
 TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 
 	el: $('#content')
+	
+	initialize: ->
+		console.log("init")
 
 	events: 
-		"click button": "createProject"
+		"click button#createProject": "createProject"
 	
 	template: _.template($('#tpl-admin-project-management-main').html())
 	
 	createProject: ->
+		console.log("clicking")
 		projectName = $('#projectName').val()
 		this.model = new TeamCollaboration.ProjectModel()
 		this.model.set({name:projectName})
 		this.model.save()
+		console.log("wtf man")
 		this.collection.add(this.model)
 		$('#projectName').val("")
 	
@@ -48,6 +53,16 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 
 	el: $('#sidebar')
+	
+	events:
+		"click li.projectName": "renderEditProjectView"
+		
+	renderEditProjectView: (e) ->
+		projectID = $(e.currentTarget).data("id")
+		console.log(projectID)
+		project = this.collection.get(projectID)
+		this.editProjectView = new TeamCollaboration.AdminEditProjectView({model:project})
+		this.editProjectView.render()
 	
 	template: _.template($('#tpl-admin-project-management-sidebar').html())
 	
@@ -67,10 +82,21 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 )
 
 TeamCollaboration.AdminProjectView = Backbone.View.extend(
-	
+
 	template: _.template($('#tpl-project').html())
 
 	render: (e) ->
-		console.log(this.model)
+		##console.log(this.model)
 		return this.template(this.model.toJSON())
+)
+
+TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
+
+	el: $('#content')
+	
+	template: _.template($('#tpl-edit-project').html())
+	
+	render: ->
+		this.$el.html(this.template(this.model.toJSON()))
+
 )

@@ -12,7 +12,7 @@ class Project
 		
 		
 	save: (res) =>
-		@project.save (err) =>
+		@project.save (err, proj) =>
 			if err  
 				console.log("error saving project") 
 				res.contentType = 'json'
@@ -21,7 +21,9 @@ class Project
 			else 
 				console.log("saved project")
 				res.contentType = 'json'
-				res.send({success: "#{@name} has been saved"})
+				res.send(
+					success: "#{@name} has been saved"
+				)
 				
 	getProjectList: (res) =>
 		@Project.find (err, projects) =>
