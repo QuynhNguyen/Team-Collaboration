@@ -7,8 +7,12 @@ TeamCollaboration.Router = Backbone.Router.extend({
   },
   initialize: function() {},
   frontpageView: function() {
-    this.frontPageSideBar = new TeamCollaboration.ApplicationSideBarView();
-    return this.frontPageSideBar.render();
+    this.projectCollection = new TeamCollaboration.ProjectCollection();
+    this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({
+      collection: this.projectCollection
+    });
+    this.projectCollection.fetch();
+    return this.adminProjectManagementSideBar.render();
   },
   renderAdminMain: function() {
     this.adminMain = new TeamCollaboration.AdminMain();

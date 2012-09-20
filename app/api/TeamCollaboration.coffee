@@ -27,9 +27,15 @@ getProject = (req, res, next) ->
 	project = new projectSchema.Project()
 	project.getProject(res, projectName)
 	
+deleteProject = (req, res, next) ->
+	projectName = req.params.name
+	project = new projectSchema.Project()
+	project.deleteProject(res, projectName)
+	
 server.post('/projects', postProject)
 server.get('/projects', getProjectList)
 server.get('/projects/:name', getProject)
+server.del('/projects/:name', deleteProject)
 
 server.listen(8080, -> 
 	console.log("listening to server #{server.name}, #{server.url}");

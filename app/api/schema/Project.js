@@ -14,6 +14,8 @@
       this.name = name;
       this.project = project;
       this.Project = Project;
+      this.deleteProject = __bind(this.deleteProject, this);
+
       this.getProject = __bind(this.getProject, this);
 
       this.getProjectList = __bind(this.getProjectList, this);
@@ -38,14 +40,13 @@
         if (err) {
           console.log("error saving project");
           res.contentType = 'json';
-          res.code = 404;
+          res.status(404);
           return res.send({
             error: 'erorr saving project'
           });
         } else {
           console.log("saved project");
           res.contentType = 'json';
-          res.code = 200;
           return res.send({
             success: "" + _this.name + " has been saved"
           });
@@ -57,7 +58,6 @@
       var _this = this;
       return this.Project.find(function(err, projects) {
         res.contentType = 'json';
-        res.code = 200;
         return res.send(projects);
       });
     };
@@ -78,6 +78,16 @@
           res.contentType = 'json';
           return res.send(project);
         }
+      });
+    };
+
+    Project.prototype.deleteProject = function(res, projectName) {
+      console.log("deleting..." + projectName);
+      return this.Project.where('name').equals(projectName).remove(function() {
+        console.log("Deleted Project");
+        return res.send({
+          success: "Deleted Project"
+        });
       });
     };
 

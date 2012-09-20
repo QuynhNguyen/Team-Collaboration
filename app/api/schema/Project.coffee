@@ -16,18 +16,16 @@ class Project
 			if err  
 				console.log("error saving project") 
 				res.contentType = 'json'
-				res.code = 404
+				res.status(404)
 				res.send({error: 'erorr saving project'})
 			else 
 				console.log("saved project")
 				res.contentType = 'json'
-				res.code = 200
 				res.send({success: "#{@name} has been saved"})
 				
 	getProjectList: (res) =>
 		@Project.find (err, projects) =>
 			res.contentType = 'json'
-			res.code = 200
 			res.send(projects)
 			
 			
@@ -41,6 +39,13 @@ class Project
 				else
 					res.contentType = 'json'
 					res.send(project)
+		)
+		
+	deleteProject: (res, projectName) =>
+		console.log("deleting...#{projectName}")
+		@Project.where('name').equals(projectName).remove( -> 
+			console.log("Deleted Project")
+			res.send({success: "Deleted Project"})
 		)
 		
 		

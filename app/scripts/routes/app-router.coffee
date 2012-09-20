@@ -11,8 +11,11 @@ TeamCollaboration.Router = Backbone.Router.extend(
 	## Front Page ##
 	
 	frontpageView: ->
-		this.frontPageSideBar = new TeamCollaboration.ApplicationSideBarView()
-		this.frontPageSideBar.render()
+		this.projectCollection = new TeamCollaboration.ProjectCollection()
+		this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({collection:this.projectCollection})
+		this.projectCollection.fetch()
+		this.adminProjectManagementSideBar.render()
+		
 		
 	## Admin Page ##
 		
