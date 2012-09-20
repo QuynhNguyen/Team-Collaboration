@@ -2,13 +2,14 @@ mongoose = require('mongoose')
 connection = require('../utils/DBConnection.js')
 
 class Project 
-	constructor: (@name, @project) ->
+	constructor: (@name, @project, @Project) ->
 		db = connection.createMongoDBConnection()
 		schema = mongoose.Schema({name:'string'})
-		Project = db.model("Project", schema)
+		@Project = db.model("Project", schema)
 		projectName = @name
 		console.log("this is project name #{@name} and this is project name #{projectName}")
-		@project = new Project({name: projectName})
+		@project = new @Project({name: projectName})
+		
 		
 	save: (res) =>
 		@project.save (err) =>
@@ -22,5 +23,12 @@ class Project
 				res.contentType = 'json'
 				res.code = 200
 				res.send({success: "#{@name} has been saved"})
+				
+	getProjectList: (res) =>
+		@Project.find (err, projects) =>
+			res.contentType = 'json'
+			res.code = 200
+			res.send(projects)
+		
 		
 module.exports.Project = Project

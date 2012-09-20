@@ -9,20 +9,23 @@
 
   Project = (function() {
 
-    function Project(name, project) {
+    function Project(name, project, Project) {
       var db, projectName, schema;
       this.name = name;
       this.project = project;
+      this.Project = Project;
+      this.getProjectList = __bind(this.getProjectList, this);
+
       this.save = __bind(this.save, this);
 
       db = connection.createMongoDBConnection();
       schema = mongoose.Schema({
         name: 'string'
       });
-      Project = db.model("Project", schema);
+      this.Project = db.model("Project", schema);
       projectName = this.name;
       console.log("this is project name " + this.name + " and this is project name " + projectName);
-      this.project = new Project({
+      this.project = new this.Project({
         name: projectName
       });
     }
@@ -45,6 +48,15 @@
             success: "" + _this.name + " has been saved"
           });
         }
+      });
+    };
+
+    Project.prototype.getProjectList = function(res) {
+      var _this = this;
+      return this.Project.find(function(err, projects) {
+        res.contentType = 'json';
+        res.code = 200;
+        return res.send(projects);
       });
     };
 
