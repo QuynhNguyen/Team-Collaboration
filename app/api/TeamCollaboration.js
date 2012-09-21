@@ -45,10 +45,10 @@
   };
 
   deleteProject = function(req, res, next) {
-    var project, projectName;
-    projectName = req.params.name;
+    var project, projectID;
+    projectID = req.params.id;
     project = new projectSchema.Project();
-    return project.deleteProject(res, projectName);
+    return project.deleteProject(res, projectID);
   };
 
   server.post('/projects', postProject);
@@ -57,7 +57,7 @@
 
   server.get('/projects/:name', getProject);
 
-  server.del('/projects/:name', deleteProject);
+  server.del('/projects/:id', deleteProject);
 
   server.listen(8080, function() {
     return console.log("listening to server " + server.name + ", " + server.url);

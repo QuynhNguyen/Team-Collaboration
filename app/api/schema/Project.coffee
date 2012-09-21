@@ -44,11 +44,9 @@ class Project
 					res.send(project)
 		)
 		
-	deleteProject: (res, projectName) =>
-		console.log("deleting...#{projectName}")
-		@Project.where('name').equals(projectName).remove( -> 
-			console.log("Deleted Project")
-			res.send({success: "Deleted Project"})
+	deleteProject: (res, projectID) =>
+		@Project.findByIdAndRemove(projectID, ->
+				res.send({success: "Delete Project Request Executed"})
 		)
 		
 		

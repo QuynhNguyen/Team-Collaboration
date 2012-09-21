@@ -82,12 +82,10 @@
       });
     };
 
-    Project.prototype.deleteProject = function(res, projectName) {
-      console.log("deleting..." + projectName);
-      return this.Project.where('name').equals(projectName).remove(function() {
-        console.log("Deleted Project");
+    Project.prototype.deleteProject = function(res, projectID) {
+      return this.Project.findByIdAndRemove(projectID, function() {
         return res.send({
-          success: "Deleted Project"
+          success: "Delete Project Request Executed"
         });
       });
     };
