@@ -110,7 +110,15 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 
 	el: $('#content')
 	
+	events: {
+		"click button#createAnotherProject": "navigateToProjectCreator"
+	}
+	
 	template: _.template($('#tpl-edit-project').html())
+	
+	navigateToProjectCreator: ->
+		console.log("test")
+		window.location.reload()
 	
 	render: ->
 		this.$el.html(this.template(this.model.toJSON()))

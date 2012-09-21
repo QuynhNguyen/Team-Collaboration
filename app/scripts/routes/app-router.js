@@ -5,7 +5,8 @@
     routes: {
       "": "frontpageView",
       "admin": "adminView",
-      "admin/project-management": "adminProjectManagementView"
+      "admin/project-management": "adminProjectManagementView",
+      "admin/project-management/edit": "adminProjectManagementView"
     },
     initialize: function() {},
     frontpageView: function() {

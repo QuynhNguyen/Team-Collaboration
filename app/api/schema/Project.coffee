@@ -2,10 +2,10 @@ mongoose = require('mongoose')
 connection = require('../utils/DBConnection.js')
 
 class Project 
-	constructor: (@name, @project, @Project) ->
-		db = connection.createMongoDBConnection()
+	constructor: (@name, @project, @Project, @db) ->
+		@db = connection.createMongoDBConnection()
 		schema = mongoose.Schema({name:'string'})
-		@Project = db.model("Project", schema)
+		@Project = @db.model("Project", schema)
 		projectName = @name
 		console.log("this is project name #{@name} and this is project name #{projectName}")
 		@project = new @Project({name: projectName})
@@ -26,10 +26,13 @@ class Project
 					_id: "#{proj._id}"
 				)
 				
+			@db.close()
+				
 	getProjectList: (res) =>
 		@Project.find (err, projects) =>
 			res.contentType = 'json'
 			res.send(projects)
+			@db.close()
 			
 			
 	getProject: (res, projectName) =>
@@ -43,11 +46,14 @@ class Project
 					res.contentType = 'json'
 					res.send(project)
 		)
+		@db.close()
 		
 	deleteProject: (res, projectID) =>
 		@Project.findByIdAndRemove(projectID, ->
 				res.send({success: "Delete Project Request Executed"})
 		)
+		@db.close()
+		
 		
 		
 module.exports.Project = Project

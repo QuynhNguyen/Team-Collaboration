@@ -9,11 +9,12 @@
 
   Project = (function() {
 
-    function Project(name, project, Project) {
-      var db, projectName, schema;
+    function Project(name, project, Project, db) {
+      var projectName, schema;
       this.name = name;
       this.project = project;
       this.Project = Project;
+      this.db = db;
       this.deleteProject = __bind(this.deleteProject, this);
 
       this.getProject = __bind(this.getProject, this);
@@ -22,11 +23,11 @@
 
       this.save = __bind(this.save, this);
 
-      db = connection.createMongoDBConnection();
+      this.db = connection.createMongoDBConnection();
       schema = mongoose.Schema({
         name: 'string'
       });
-      this.Project = db.model("Project", schema);
+      this.Project = this.db.model("Project", schema);
       projectName = this.name;
       console.log("this is project name " + this.name + " and this is project name " + projectName);
       this.project = new this.Project({
@@ -41,17 +42,18 @@
           console.log("error saving project");
           res.contentType = 'json';
           res.status(404);
-          return res.send({
+          res.send({
             error: 'erorr saving project'
           });
         } else {
           console.log("saved project");
           res.contentType = 'json';
-          return res.send({
+          res.send({
             success: "" + _this.name + " has been saved",
             _id: "" + proj._id
           });
         }
+        return _this.db.close();
       });
     };
 
@@ -59,14 +61,15 @@
       var _this = this;
       return this.Project.find(function(err, projects) {
         res.contentType = 'json';
-        return res.send(projects);
+        res.send(projects);
+        return _this.db.close();
       });
     };
 
     Project.prototype.getProject = function(res, projectName) {
       var _this = this;
       console.log(projectName);
-      return this.Project.find({
+      this.Project.find({
         name: projectName
       }).exec(function(err, project) {
         console.log(project.length);
@@ -80,14 +83,16 @@
           return res.send(project);
         }
       });
+      return this.db.close();
     };
 
     Project.prototype.deleteProject = function(res, projectID) {
-      return this.Project.findByIdAndRemove(projectID, function() {
+      this.Project.findByIdAndRemove(projectID, function() {
         return res.send({
           success: "Delete Project Request Executed"
         });
       });
+      return this.db.close();
     };
 
     return Project;
