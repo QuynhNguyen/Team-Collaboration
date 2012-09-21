@@ -33,16 +33,15 @@
       this.project = new this.Project({
         name: projectName
       });
+      console.log("create new project db");
     }
 
     Project.prototype.save = function(res) {
       var _this = this;
       return this.project.save(function(err, proj) {
         if (err) {
-          console.log("error saving project");
           res.contentType = 'json';
-          res.status(404);
-          res.send({
+          res.send(404, {
             error: 'erorr saving project'
           });
         } else {
@@ -69,7 +68,7 @@
     Project.prototype.getProject = function(res, projectName) {
       var _this = this;
       console.log(projectName);
-      this.Project.find({
+      return this.Project.find({
         name: projectName
       }).exec(function(err, project) {
         console.log(project.length);
@@ -77,22 +76,25 @@
           res.send({
             error: "No Project Found Under The Name Of " + projectName
           });
-          return res.end();
+          res.end();
         } else {
           res.contentType = 'json';
-          return res.send(project);
+          res.send(200, project);
         }
+        return _this.db.close();
       });
-      return this.db.close();
     };
 
     Project.prototype.deleteProject = function(res, projectID) {
-      this.Project.findByIdAndRemove(projectID, function() {
-        return res.send({
+      var _this = this;
+      return this.Project.findByIdAndRemove(projectID, function() {
+        console.log("deleting shit");
+        res.contentType = 'json';
+        res.send(200, {
           success: "Delete Project Request Executed"
         });
+        return _this.db.close();
       });
-      return this.db.close();
     };
 
     return Project;

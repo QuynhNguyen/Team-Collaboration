@@ -9,15 +9,14 @@ class Project
 		projectName = @name
 		console.log("this is project name #{@name} and this is project name #{projectName}")
 		@project = new @Project({name: projectName})
+		console.log("create new project db")
 		
 		
 	save: (res) =>
 		@project.save (err, proj) =>
-			if err  
-				console.log("error saving project") 
+			if err   
 				res.contentType = 'json'
-				res.status(404)
-				res.send({error: 'erorr saving project'})
+				res.send(404, {error: 'erorr saving project'})
 			else 
 				console.log("saved project")
 				res.contentType = 'json'
@@ -44,15 +43,19 @@ class Project
 					res.end()
 				else
 					res.contentType = 'json'
-					res.send(project)
+					res.send(200, project)
+					
+				@db.close()
 		)
-		@db.close()
 		
 	deleteProject: (res, projectID) =>
-		@Project.findByIdAndRemove(projectID, ->
-				res.send({success: "Delete Project Request Executed"})
+		@Project.findByIdAndRemove(projectID, =>
+				console.log("deleting shit")
+				res.contentType = 'json'
+				res.send(200, {success: "Delete Project Request Executed"})
+				@db.close()
 		)
-		@db.close()
+		
 		
 		
 		

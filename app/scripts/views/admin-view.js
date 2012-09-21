@@ -65,7 +65,7 @@
       this.$el.empty();
       this.$el.html(this.template());
       this.collection.on("reset", this.render, this);
-      return this.collection.on("add", this.addProject, this);
+      return this.collection.on("add", this.addProjectToListView, this);
     },
     renderEditProjectView: function(e) {
       var project, projectID;
@@ -78,20 +78,23 @@
       return this.editProjectView.render();
     },
     template: _.template($('#tpl-admin-project-management-sidebar').html()),
-    addProject: function(project) {
+    addProjectToListView: function(project) {
       this.projectView = new TeamCollaboration.AdminProjectView({
         model: project
       });
       return this.$el.append(this.projectView.render());
     },
     render: function() {
-      this.collection.forEach(this.addProject, this);
+      this.collection.forEach(this.addProjectToListView, this);
       return this;
     }
   });
 
   TeamCollaboration.AdminProjectView = Backbone.View.extend({
     template: _.template($('#tpl-project').html()),
+    remove: function() {
+      return this.$el.remove();
+    },
     render: function(e) {
       return this.template(this.model.toJSON());
     }
@@ -100,12 +103,25 @@
   TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
     el: $('#content'),
     events: {
-      "click button#createAnotherProject": "navigateToProjectCreator"
+      "click button#createAnotherProject": "navigateToProjectCreator",
+      "click button#deleteProject": "deleteProject"
+    },
+    initialize: function() {
+      this.$el.unbind();
+      return this.$el.empty();
     },
     template: _.template($('#tpl-edit-project').html()),
     navigateToProjectCreator: function() {
-      console.log("test");
       return window.location.reload();
+    },
+    deleteProject: function() {
+      console.log("test me");
+      return this.model.destroy({
+        success: function(model, res) {
+          console.log(res);
+          return console.log(model);
+        }
+      });
     },
     render: function() {
       return this.$el.html(this.template(this.model.toJSON()));

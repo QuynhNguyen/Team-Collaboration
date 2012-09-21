@@ -74,7 +74,8 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		this.$el.empty()
 		this.$el.html(this.template())
 		this.collection.on("reset", this.render, this)
-		this.collection.on("add", this.addProject, this)
+		this.collection.on("add", this.addProjectToListView, this)
+		##this.collection.on("remove", this.removeProjectFromListView, this)
 		
 	renderEditProjectView: (e) ->
 		projectID = $(e.currentTarget).data("id")
@@ -86,12 +87,14 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 	template: _.template($('#tpl-admin-project-management-sidebar').html())
 	
 	
-	addProject: (project) -> 
+	addProjectToListView: (project) -> 
 		this.projectView = new TeamCollaboration.AdminProjectView({model:project})
 		this.$el.append(this.projectView.render())
+		
+		
 
 	render: ->
-		this.collection.forEach(this.addProject, this)
+		this.collection.forEach(this.addProjectToListView, this)
 		return this
 		
 		
@@ -101,8 +104,10 @@ TeamCollaboration.AdminProjectView = Backbone.View.extend(
 
 	template: _.template($('#tpl-project').html())
 
+	remove: ->
+		this.$el.remove()
+
 	render: (e) ->
-		##console.log(this.model)
 		return this.template(this.model.toJSON())
 )
 
@@ -112,14 +117,27 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 	
 	events: {
 		"click button#createAnotherProject": "navigateToProjectCreator"
+		"click button#deleteProject": "deleteProject"
 	}
+	
+	initialize: ->
+		this.$el.unbind()
+		this.$el.empty()
 	
 	template: _.template($('#tpl-edit-project').html())
 	
 	navigateToProjectCreator: ->
-		console.log("test")
 		window.location.reload()
-	
+		
+	deleteProject: ->
+		console.log("test me")
+		
+		this.model.destroy(
+			success: (model, res) ->
+				console.log(res)
+				console.log(model)
+		)
+		
 	render: ->
 		this.$el.html(this.template(this.model.toJSON()))
 

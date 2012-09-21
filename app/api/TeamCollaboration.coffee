@@ -21,6 +21,7 @@ postProject = (req, res, next) ->
 getProjectList = (req, res, next) ->	
 	project = new projectSchema.Project()
 	project.getProjectList(res)
+	console.log("get project list")
 	
 getProject = (req, res, next) ->
 	projectName = req.params.name
