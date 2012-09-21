@@ -19,7 +19,7 @@ module.exports = function( grunt ) {
     coffee: {
       dist: {
         src: 'app/scripts/**/*.coffee',
-        //dest: 'app/scripts'
+        dest: 'app/scripts'
       }
     },
 

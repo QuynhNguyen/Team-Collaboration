@@ -114,7 +114,8 @@
     el: $('#content'),
     events: {
       "click button#createAnotherProject": "navigateToProjectCreator",
-      "click button#deleteProject": "deleteProject"
+      "click button#deleteProject": "deleteProject",
+      "click button#updateProject": "updateProject"
     },
     initialize: function() {
       this.$el.unbind();
@@ -130,6 +131,18 @@
       return this.model.destroy({
         success: function(model, res) {
           return self.$el.html("<div class=\"alert alert-success span4\">\n	Succesfully Deleted Project\n<br /><br />\n<p><button class=\"btn btn-primary\">Create Another Project</button></p>\n</div>");
+        }
+      });
+    },
+    updateProject: function() {
+      var projectName, self;
+      self = this;
+      projectName = $('#projectName').val();
+      return this.model.save({
+        name: projectName
+      }, {
+        success: function(err, res) {
+          return console.log(res);
         }
       });
     },

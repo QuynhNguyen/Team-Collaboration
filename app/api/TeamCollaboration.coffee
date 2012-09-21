@@ -23,7 +23,7 @@ getProjectList = (req, res, next) ->
 	project.getProjectList(res)
 	console.log("get project list")
 	
-getProject = (req, res, next) ->
+getProjectByName = (req, res, next) ->
 	projectName = req.params.name
 	project = new projectSchema.Project()
 	project.getProject(res, projectName)
@@ -33,10 +33,17 @@ deleteProject = (req, res, next) ->
 	project = new projectSchema.Project()
 	project.deleteProject(res, projectID)
 	
+updateProject = (req, res, next) ->
+	projectID = req.params.id
+	projectName = req.params.name
+	console.log(req.params)
+	res.send(200, {done: "updated"})
+	
 server.post('/projects', postProject)
 server.get('/projects', getProjectList)
-server.get('/projects/:name', getProject)
+server.get('/projects/:name', getProjectByName)
 server.del('/projects/:id', deleteProject)
+server.put('/projects/:id', updateProject)
 
 server.listen(8080, -> 
 	console.log("listening to server #{server.name}, #{server.url}");
