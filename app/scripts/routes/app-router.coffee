@@ -33,8 +33,6 @@ TeamCollaboration.Router = Backbone.Router.extend(
 		
 	adminProjectManagementView: ->
 		this.projectCollection = new TeamCollaboration.ProjectCollection()
-		this.adminProjectManagementMain.close() if this.adminProjectManagementMain
-		this.adminProjectManagementSideBar.close() if this.adminProjectManagementSideBar
 		this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({collection:this.projectCollection})
 		this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({collection:this.projectCollection})
 		this.projectCollection.fetch()

@@ -5,6 +5,10 @@ TeamCollaboration.AdminMain = Backbone.View.extend(
 	el: $('#content')
 
 	template: _.template($('#tpl-admin-main').html())
+	
+	initialize: ->
+		this.$el.unbind()
+		this.$el.empty()
 
 	render: (e) ->
 		this.$el.html(this.template())
@@ -15,6 +19,10 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend(
 	el: $('#sidebar')
 
 	template: _.template($('#tpl-admin-sidebar').html())
+	
+	initialize: ->
+		this.$el.unbind()
+		this.$el.empty()
 	
 	render: (e) ->
 		this.$el.html(this.template())
@@ -27,11 +35,12 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 
 	el: $('#content')
 	
-	initialize: ->
-		console.log("init")
-
 	events: 
 		"click button#createProject": "createProject"
+		
+	initialize: ->
+		this.$el.unbind()
+		this.$el.empty()
 	
 	template: _.template($('#tpl-admin-project-management-main').html())
 	
@@ -43,21 +52,13 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 		this.model.save(
 			{name:projectName} 
 			success: (model, response) ->
-				console.log(model)
-				console.log(self.model)
-				console.log(response)
-				model.set({_id: response._id})
 				self.collection.add(model)
 		)
-		console.log("wtf man")
 		$('#projectName').val("")
 	
 	render: (e) ->
 		this.$el.html(this.template())
 		
-	close: ->
-		this.$el.unbind()
-		this.$el.empty()
 ) 
 
 
@@ -68,6 +69,13 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 	events:
 		"click li.projectName": "renderEditProjectView"
 		
+	initialize: ->
+		this.$el.unbind()
+		this.$el.empty()
+		this.$el.html(this.template())
+		this.collection.on("reset", this.render, this)
+		this.collection.on("add", this.addProject, this)
+		
 	renderEditProjectView: (e) ->
 		projectID = $(e.currentTarget).data("id")
 		console.log(projectID)
@@ -77,10 +85,6 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 	
 	template: _.template($('#tpl-admin-project-management-sidebar').html())
 	
-	initialize: ->
-		this.$el.html(this.template())
-		this.collection.on("reset", this.render, this)
-		this.collection.on("add", this.addProject, this)
 	
 	addProject: (project) -> 
 		this.projectView = new TeamCollaboration.AdminProjectView({model:project})
@@ -90,9 +94,6 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		this.collection.forEach(this.addProject, this)
 		return this
 		
-	close: ->
-		this.$el.unbind()
-		this.$el.empty()
 		
 )
 

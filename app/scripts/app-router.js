@@ -28,12 +28,6 @@ TeamCollaboration.Router = Backbone.Router.extend({
   },
   adminProjectManagementView: function() {
     this.projectCollection = new TeamCollaboration.ProjectCollection();
-    if (this.adminProjectManagementMain) {
-      this.adminProjectManagementMain.close();
-    }
-    if (this.adminProjectManagementSideBar) {
-      this.adminProjectManagementSideBar.close();
-    }
     this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({
       collection: this.projectCollection
     });
