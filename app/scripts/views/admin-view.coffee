@@ -90,6 +90,10 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		this.collection.forEach(this.addProject, this)
 		return this
 		
+	close: ->
+		this.$el.unbind()
+		this.$el.empty()
+		
 )
 
 TeamCollaboration.AdminProjectView = Backbone.View.extend(

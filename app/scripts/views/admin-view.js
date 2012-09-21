@@ -87,6 +87,10 @@
     render: function() {
       this.collection.forEach(this.addProject, this);
       return this;
+    },
+    close: function() {
+      this.$el.unbind();
+      return this.$el.empty();
     }
   });
 
