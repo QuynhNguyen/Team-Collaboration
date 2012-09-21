@@ -67,6 +67,9 @@
       this.collection.on("reset", this.render, this);
       return this.collection.on("add", this.addProjectToListView, this);
     },
+    test: function() {
+      return console.log("remove?");
+    },
     renderEditProjectView: function(e) {
       var project, projectID;
       projectID = $(e.currentTarget).data("id");
@@ -91,12 +94,19 @@
   });
 
   TeamCollaboration.AdminProjectView = Backbone.View.extend({
-    template: _.template($('#tpl-project').html()),
+    model: TeamCollaboration.ProjectModel,
+    tagName: 'li',
+    className: 'projectName',
+    initialize: function() {
+      return this.model.on('remove', this.remove, this);
+    },
     remove: function() {
       return this.$el.remove();
     },
+    template: _.template($('#tpl-project').html()),
     render: function(e) {
-      return this.template(this.model.toJSON());
+      this.$el.attr("data-id", this.model.id);
+      return this.$el.html(this.template(this.model.toJSON()));
     }
   });
 
@@ -115,11 +125,11 @@
       return window.location.reload();
     },
     deleteProject: function() {
-      console.log("test me");
+      var self;
+      self = this;
       return this.model.destroy({
         success: function(model, res) {
-          console.log(res);
-          return console.log(model);
+          return self.$el.html("<div class=\"alert alert-success span4\">\n	Succesfully Deleted Project\n<br /><br />\n<p><button class=\"btn btn-primary\">Create Another Project</button></p>\n</div>");
         }
       });
     },

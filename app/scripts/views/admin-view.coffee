@@ -75,8 +75,10 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		this.$el.html(this.template())
 		this.collection.on("reset", this.render, this)
 		this.collection.on("add", this.addProjectToListView, this)
-		##this.collection.on("remove", this.removeProjectFromListView, this)
 		
+	test: ->
+		console.log("remove?")	
+	
 	renderEditProjectView: (e) ->
 		projectID = $(e.currentTarget).data("id")
 		console.log(projectID)
@@ -102,13 +104,22 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 
 TeamCollaboration.AdminProjectView = Backbone.View.extend(
 
-	template: _.template($('#tpl-project').html())
+	model: TeamCollaboration.ProjectModel
+	
+	tagName: 'li'
+	className: 'projectName'
 
+	initialize: ->
+		this.model.on('remove', this.remove, this)
+		
 	remove: ->
 		this.$el.remove()
 
+	template: _.template($('#tpl-project').html())
+
 	render: (e) ->
-		return this.template(this.model.toJSON())
+		this.$el.attr("data-id", this.model.id)
+		return this.$el.html(this.template(this.model.toJSON()))
 )
 
 TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
@@ -130,12 +141,18 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		window.location.reload()
 		
 	deleteProject: ->
-		console.log("test me")
-		
+		self = this
 		this.model.destroy(
 			success: (model, res) ->
-				console.log(res)
-				console.log(model)
+				self.$el.html( 
+					"""
+						<div class="alert alert-success span4">
+							Succesfully Deleted Project
+						<br /><br />
+						<p><button class="btn btn-primary">Create Another Project</button></p>
+						</div>
+					"""
+				)
 		)
 		
 	render: ->
