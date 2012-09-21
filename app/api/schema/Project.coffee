@@ -23,6 +23,7 @@ class Project
 				res.contentType = 'json'
 				res.send(
 					success: "#{@name} has been saved"
+					_id: "#{proj._id}"
 				)
 				
 	getProjectList: (res) =>

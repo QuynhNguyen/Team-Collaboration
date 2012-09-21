@@ -39,14 +39,25 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 		console.log("clicking")
 		projectName = $('#projectName').val()
 		this.model = new TeamCollaboration.ProjectModel()
-		this.model.set({name:projectName})
-		this.model.save()
+		self = this
+		this.model.save(
+			{name:projectName} 
+			success: (model, response) ->
+				console.log(model)
+				console.log(self.model)
+				console.log(response)
+				model.set({_id: response._id})
+				self.collection.add(model)
+		)
 		console.log("wtf man")
-		this.collection.add(this.model)
 		$('#projectName').val("")
 	
 	render: (e) ->
 		this.$el.html(this.template())
+		
+	close: ->
+		this.$el.unbind()
+		this.$el.empty()
 ) 
 
 

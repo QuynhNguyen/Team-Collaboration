@@ -25,20 +25,33 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
   },
   template: _.template($('#tpl-admin-project-management-main').html()),
   createProject: function() {
-    var projectName;
+    var projectName, self;
     console.log("clicking");
     projectName = $('#projectName').val();
     this.model = new TeamCollaboration.ProjectModel();
-    this.model.set({
+    self = this;
+    this.model.save({
       name: projectName
+    }, {
+      success: function(model, response) {
+        console.log(model);
+        console.log(self.model);
+        console.log(response);
+        model.set({
+          _id: response._id
+        });
+        return self.collection.add(model);
+      }
     });
-    this.model.save();
     console.log("wtf man");
-    this.collection.add(this.model);
     return $('#projectName').val("");
   },
   render: function(e) {
     return this.$el.html(this.template());
+  },
+  close: function() {
+    this.$el.unbind();
+    return this.$el.empty();
   }
 });
 

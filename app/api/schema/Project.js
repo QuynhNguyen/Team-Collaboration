@@ -48,7 +48,8 @@
           console.log("saved project");
           res.contentType = 'json';
           return res.send({
-            success: "" + _this.name + " has been saved"
+            success: "" + _this.name + " has been saved",
+            _id: "" + proj._id
           });
         }
       });

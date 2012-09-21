@@ -30,6 +30,9 @@
     },
     adminProjectManagementView: function() {
       this.projectCollection = new TeamCollaboration.ProjectCollection();
+      if (this.adminProjectManagementMain) {
+        this.adminProjectManagementMain.close();
+      }
       this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({
         collection: this.projectCollection
       });
