@@ -133,6 +133,7 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		"click button#createAnotherProject": "navigateToProjectCreator"
 		"click button#deleteProject": "deleteProject"
 		"keyup input#projectName": "updateProjectNameAsUserType"
+		"focusout input#projectName": "saveProject"
 	}
 	
 	initialize: ->
@@ -148,6 +149,8 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		console.log("key down")
 		projectName = $('#projectName').val()
 		this.model.set({name: projectName})
+		
+	saveProject: ->
 		this.model.save()
 	
 	deleteProject: ->
