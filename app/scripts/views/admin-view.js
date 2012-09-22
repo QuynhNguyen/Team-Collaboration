@@ -67,13 +67,9 @@
       this.collection.on("reset", this.render, this);
       return this.collection.on("add", this.addProjectToListView, this);
     },
-    test: function() {
-      return console.log("remove?");
-    },
     renderEditProjectView: function(e) {
       var project, projectID;
       projectID = $(e.currentTarget).data("id");
-      console.log(projectID);
       project = this.collection.get(projectID);
       this.editProjectView = new TeamCollaboration.AdminEditProjectView({
         model: project
@@ -82,6 +78,7 @@
     },
     template: _.template($('#tpl-admin-project-management-sidebar').html()),
     addProjectToListView: function(project) {
+      console.log("WTFzz");
       this.projectView = new TeamCollaboration.AdminProjectView({
         model: project
       });
@@ -98,7 +95,8 @@
     tagName: 'li',
     className: 'projectName',
     initialize: function() {
-      return this.model.on('remove', this.remove, this);
+      this.model.on('remove', this.remove, this);
+      return this.model.on('change', this.render, this);
     },
     remove: function() {
       return this.$el.remove();

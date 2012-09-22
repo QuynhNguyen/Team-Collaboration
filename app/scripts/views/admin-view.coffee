@@ -76,12 +76,9 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		this.collection.on("reset", this.render, this)
 		this.collection.on("add", this.addProjectToListView, this)
 		
-	test: ->
-		console.log("remove?")	
 	
 	renderEditProjectView: (e) ->
 		projectID = $(e.currentTarget).data("id")
-		console.log(projectID)
 		project = this.collection.get(projectID)
 		this.editProjectView = new TeamCollaboration.AdminEditProjectView({model:project})
 		this.editProjectView.render()
@@ -90,6 +87,7 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 	
 	
 	addProjectToListView: (project) -> 
+		console.log("WTFzz")
 		this.projectView = new TeamCollaboration.AdminProjectView({model:project})
 		this.$el.append(this.projectView.render())
 		
@@ -111,6 +109,7 @@ TeamCollaboration.AdminProjectView = Backbone.View.extend(
 
 	initialize: ->
 		this.model.on('remove', this.remove, this)
+		this.model.on('change', this.render, this)
 		
 	remove: ->
 		this.$el.remove()

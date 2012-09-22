@@ -24,7 +24,6 @@ class Project
 					success: "#{@name} has been saved"
 					_id: "#{proj._id}"
 				)
-				
 			@db.close()
 				
 	getProjectList: (res) =>
