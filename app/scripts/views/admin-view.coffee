@@ -133,7 +133,7 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		"click button#createAnotherProject": "navigateToProjectCreator"
 		"click button#deleteProject": "deleteProject"
 		"keyup input#projectName": "updateProjectNameAsUserType"
-		"focusout input#projectName": "saveProject"
+		"mouseleave input#projectName": "saveProject"
 	}
 	
 	initialize: ->
@@ -146,12 +146,27 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		window.location.reload()
 		
 	updateProjectNameAsUserType: ->
-		console.log("key down")
-		projectName = $('#projectName').val()
-		this.model.set({name: projectName})
+		
+		projectName = $('#projectName').val().trim()
+		$('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank")
+		this.model.set(
+			{name: projectName}
+			success: () ->
+				console.log("success")
+			error: (model, errorMsg) ->
+				console.log('test me yes')
+				$('.alert').addClass('alert-error').text($.parseJSON(errorMsg.responseText).error)
+		)
 		
 	saveProject: ->
-		this.model.save()
+		this.model.save(
+			{}
+			success: () ->
+				$('.alert').addClass('alert-success').text("Project name has been updated")
+			error: (model, err) ->
+				console.log(err)
+				$('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error)
+		)
 	
 	deleteProject: ->
 		self = this
@@ -170,5 +185,6 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		
 	render: ->
 		this.$el.html(this.template(this.model.toJSON()))
+		$('#projectName').focus()
 
 )

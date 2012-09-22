@@ -61,16 +61,25 @@ class Project
 		)
 		
 	updateProject: (res, projectID, projectName) =>
-		@Project.findById(
-			projectID
-			(err, proj) =>
-				proj.name = projectName
-				proj.save( => 
-					res.contentType = 'json'
-					res.send(200, {success: "Project has been updated"})
+		@Project.find({name:projectName}).exec( 
+			(err, projectCollection) =>
+				console.log(projectCollection.length)
+				if projectCollection.length > 0
+					res.send(404, {error: "#{projectName} is already existed"})
 					@db.close()
-				)
+				else
+					@Project.findById(
+						projectID
+						(err, proj) =>
+							proj.name = projectName
+							proj.save( => 
+								res.contentType = 'json'
+								res.send(200, {success: "Project has been updated"})
+								@db.close()
+							)
+					)
 		)
+
 		
 		
 		

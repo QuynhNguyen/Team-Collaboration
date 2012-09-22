@@ -111,15 +111,27 @@
 
     Project.prototype.updateProject = function(res, projectID, projectName) {
       var _this = this;
-      return this.Project.findById(projectID, function(err, proj) {
-        proj.name = projectName;
-        return proj.save(function() {
-          res.contentType = 'json';
-          res.send(200, {
-            success: "Project has been updated"
+      return this.Project.find({
+        name: projectName
+      }).exec(function(err, projectCollection) {
+        console.log(projectCollection.length);
+        if (projectCollection.length > 0) {
+          res.send(404, {
+            error: "" + projectName + " is already existed"
           });
           return _this.db.close();
-        });
+        } else {
+          return _this.Project.findById(projectID, function(err, proj) {
+            proj.name = projectName;
+            return proj.save(function() {
+              res.contentType = 'json';
+              res.send(200, {
+                success: "Project has been updated"
+              });
+              return _this.db.close();
+            });
+          });
+        }
       });
     };
 

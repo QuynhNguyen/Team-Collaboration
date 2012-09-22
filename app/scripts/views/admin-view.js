@@ -118,7 +118,7 @@
       "click button#createAnotherProject": "navigateToProjectCreator",
       "click button#deleteProject": "deleteProject",
       "keyup input#projectName": "updateProjectNameAsUserType",
-      "focusout input#projectName": "saveProject"
+      "mouseleave input#projectName": "saveProject"
     },
     initialize: function() {
       this.$el.unbind();
@@ -130,14 +130,30 @@
     },
     updateProjectNameAsUserType: function() {
       var projectName;
-      console.log("key down");
-      projectName = $('#projectName').val();
+      projectName = $('#projectName').val().trim();
+      $('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank");
       return this.model.set({
         name: projectName
+      }, {
+        success: function() {
+          return console.log("success");
+        },
+        error: function(model, errorMsg) {
+          console.log('test me yes');
+          return $('.alert').addClass('alert-error').text($.parseJSON(errorMsg.responseText).error);
+        }
       });
     },
     saveProject: function() {
-      return this.model.save();
+      return this.model.save({}, {
+        success: function() {
+          return $('.alert').addClass('alert-success').text("Project name has been updated");
+        },
+        error: function(model, err) {
+          console.log(err);
+          return $('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error);
+        }
+      });
     },
     deleteProject: function() {
       var self;
@@ -149,7 +165,8 @@
       });
     },
     render: function() {
-      return this.$el.html(this.template(this.model.toJSON()));
+      this.$el.html(this.template(this.model.toJSON()));
+      return $('#projectName').focus();
     }
   });
 

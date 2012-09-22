@@ -132,7 +132,7 @@
 		<script type="text/template" id="tpl-edit-project">
 			<div class="row-fluid">
 				<div class="span4">
-					<div>
+					<form>
 					  <legend>Edit Project</legend>
 					  <label for"projectID">Project ID</label>
 					  <input id="projectID" type="text" value="<%= _id %>" class="span12" disabled>
@@ -141,7 +141,7 @@
 						<span class="help-block alert">Project name must be unique and not blank</span>
 						<button type="submit" class="btn-small btn-danger" id="deleteProject">Delete Project</button>
 						<button type="submit" class="btn-small btn-info" id="createAnotherProject">Create Project</button>
-					</div>
+					</form>
 				</div>	
 			</div>
 		</script>
