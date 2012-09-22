@@ -32,7 +32,7 @@ class Project
 
 				
 	getProjectList: (res) =>
-		@Project.find (err, projects) =>
+		@Project.find().sort('field name').exec (err, projects) =>
 			res.contentType = 'json'
 			res.send(projects)
 			@db.close()

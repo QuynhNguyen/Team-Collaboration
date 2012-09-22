@@ -70,7 +70,7 @@
 
     Project.prototype.getProjectList = function(res) {
       var _this = this;
-      return this.Project.find(function(err, projects) {
+      return this.Project.find().sort('field name').exec(function(err, projects) {
         res.contentType = 'json';
         res.send(projects);
         return _this.db.close();
