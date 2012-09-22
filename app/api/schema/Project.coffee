@@ -56,6 +56,17 @@ class Project
 				@db.close()
 		)
 		
+	updateProject: (res, projectID, projectName) =>
+		@Project.findById(
+			projectID
+			(err, proj) =>
+				proj.name = projectName
+				proj.save( => 
+					res.contentType = 'json'
+					res.send(200, {success: "Project has been updated"})
+					@db.close()
+				)
+		)
 		
 		
 		

@@ -53,13 +53,11 @@
   };
 
   updateProject = function(req, res, next) {
-    var projectID, projectName;
+    var project, projectID, projectName;
     projectID = req.params.id;
     projectName = req.params.name;
-    console.log(req.params);
-    return res.send(200, {
-      done: "updated"
-    });
+    project = new projectSchema.Project();
+    return project.updateProject(res, projectID, projectName);
   };
 
   server.post('/projects', postProject);

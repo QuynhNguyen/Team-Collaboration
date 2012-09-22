@@ -15,6 +15,8 @@
       this.project = project;
       this.Project = Project;
       this.db = db;
+      this.updateProject = __bind(this.updateProject, this);
+
       this.deleteProject = __bind(this.deleteProject, this);
 
       this.getProject = __bind(this.getProject, this);
@@ -94,6 +96,20 @@
           success: "Delete Project Request Executed"
         });
         return _this.db.close();
+      });
+    };
+
+    Project.prototype.updateProject = function(res, projectID, projectName) {
+      var _this = this;
+      return this.Project.findById(projectID, function(err, proj) {
+        proj.name = projectName;
+        return proj.save(function() {
+          res.contentType = 'json';
+          res.send(200, {
+            success: "Project has been updated"
+          });
+          return _this.db.close();
+        });
       });
     };
 

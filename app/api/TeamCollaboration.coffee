@@ -36,8 +36,8 @@ deleteProject = (req, res, next) ->
 updateProject = (req, res, next) ->
 	projectID = req.params.id
 	projectName = req.params.name
-	console.log(req.params)
-	res.send(200, {done: "updated"})
+	project = new projectSchema.Project()
+	project.updateProject(res, projectID, projectName)
 	
 server.post('/projects', postProject)
 server.get('/projects', getProjectList)
