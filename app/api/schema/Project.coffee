@@ -43,7 +43,7 @@ class Project
 		@Project.find({name:projectName}).exec( (err, project) =>
 				console.log(project.length)
 				if project.length <= 0
-					res.send({error: "No Project Found Under The Name Of #{projectName}"})
+					res.send(404, {error: "No Project Found Under The Name Of #{projectName}"})
 					res.end()
 				else
 					res.contentType = 'json'

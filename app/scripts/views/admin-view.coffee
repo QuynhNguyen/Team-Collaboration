@@ -47,7 +47,7 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 	
 	createProject: ->
 		$('.alert').removeClass('alert-error').text("Project name must be unique and not blank")
-		projectName = $('#projectName').val()
+		projectName = $('#projectName').val().trim()
 		this.model = new TeamCollaboration.ProjectModel()
 		self = this
 		this.model.save(

@@ -85,7 +85,7 @@
       }).exec(function(err, project) {
         console.log(project.length);
         if (project.length <= 0) {
-          res.send({
+          res.send(404, {
             error: "No Project Found Under The Name Of " + projectName
           });
           res.end();
