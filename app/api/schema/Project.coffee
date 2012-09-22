@@ -4,27 +4,32 @@ connection = require('../utils/DBConnection.js')
 class Project 
 	constructor: (@name, @project, @Project, @db) ->
 		@db = connection.createMongoDBConnection()
-		schema = mongoose.Schema({name:'string'})
+		schema = mongoose.Schema({name:{type:'string', required: true}})
 		@Project = @db.model("Project", schema)
 		projectName = @name
-		console.log("this is project name #{@name} and this is project name #{projectName}")
 		@project = new @Project({name: projectName})
-		console.log("create new project db")
 		
 		
 	save: (res) =>
-		@project.save (err, proj) =>
-			if err   
-				res.contentType = 'json'
-				res.send(404, {error: 'erorr saving project'})
-			else 
-				console.log("saved project")
-				res.contentType = 'json'
-				res.send(
-					success: "#{@name} has been saved"
-					_id: "#{proj._id}"
-				)
-			@db.close()
+		@Project.find({name:@name}).exec( (err, projectFound) =>
+				if projectFound.length > 0
+					res.contentType ='json'
+					res.send(404, {error: "#{@name} is already existed."})
+					@db.close()
+				else
+					@project.save (err, proj) =>
+						if err   
+							res.contentType = 'json'
+							res.send(404, {error: 'project name must be unique and not empty'})
+						else 
+							console.log("saved project")
+							res.contentType = 'json'
+							res.send(
+								proj
+							)
+						@db.close()
+		)
+
 				
 	getProjectList: (res) =>
 		@Project.find (err, projects) =>

@@ -41,11 +41,12 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 	initialize: ->
 		this.$el.unbind()
 		this.$el.empty()
+		
 	
 	template: _.template($('#tpl-admin-project-management-main').html())
 	
 	createProject: ->
-		console.log("clicking")
+		$('.alert').removeClass('alert-error').text("Project name must be unique and not blank")
 		projectName = $('#projectName').val()
 		this.model = new TeamCollaboration.ProjectModel()
 		self = this
@@ -53,6 +54,9 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 			{name:projectName} 
 			success: (model, response) ->
 				self.collection.add(model)
+			error: (model, err) ->
+				console.log(err)
+				$('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error)
 		)
 		$('#projectName').val("")
 	

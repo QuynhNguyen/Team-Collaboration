@@ -27,34 +27,44 @@
 
       this.db = connection.createMongoDBConnection();
       schema = mongoose.Schema({
-        name: 'string'
+        name: {
+          type: 'string',
+          required: true
+        }
       });
       this.Project = this.db.model("Project", schema);
       projectName = this.name;
-      console.log("this is project name " + this.name + " and this is project name " + projectName);
       this.project = new this.Project({
         name: projectName
       });
-      console.log("create new project db");
     }
 
     Project.prototype.save = function(res) {
       var _this = this;
-      return this.project.save(function(err, proj) {
-        if (err) {
+      return this.Project.find({
+        name: this.name
+      }).exec(function(err, projectFound) {
+        if (projectFound.length > 0) {
           res.contentType = 'json';
           res.send(404, {
-            error: 'erorr saving project'
+            error: "" + _this.name + " is already existed."
           });
+          return _this.db.close();
         } else {
-          console.log("saved project");
-          res.contentType = 'json';
-          res.send({
-            success: "" + _this.name + " has been saved",
-            _id: "" + proj._id
+          return _this.project.save(function(err, proj) {
+            if (err) {
+              res.contentType = 'json';
+              res.send(404, {
+                error: 'project name must be unique and not empty'
+              });
+            } else {
+              console.log("saved project");
+              res.contentType = 'json';
+              res.send(proj);
+            }
+            return _this.db.close();
           });
         }
-        return _this.db.close();
       });
     };
 
