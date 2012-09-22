@@ -115,7 +115,8 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   events: {
     "click button#createAnotherProject": "navigateToProjectCreator",
     "click button#deleteProject": "deleteProject",
-    "click button#updateProject": "updateProject"
+    "click button#updateProject": "updateProject",
+    "keyup input#projectName": "updateProjectNameAsUserType"
   },
   initialize: function() {
     this.$el.unbind();
@@ -124,6 +125,14 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   template: _.template($('#tpl-edit-project').html()),
   navigateToProjectCreator: function() {
     return window.location.reload();
+  },
+  updateProjectNameAsUserType: function() {
+    var projectName;
+    console.log("key down");
+    projectName = $('#projectName').val();
+    return this.model.set({
+      name: projectName
+    });
   },
   deleteProject: function() {
     var self;
@@ -135,12 +144,9 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
     });
   },
   updateProject: function() {
-    var projectName, self;
+    var self;
     self = this;
-    projectName = $('#projectName').val();
-    return this.model.save({
-      name: projectName
-    }, {
+    return this.model.save({}, {
       success: function(err, res) {
         return console.log(res);
       }
