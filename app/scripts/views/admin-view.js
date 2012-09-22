@@ -117,7 +117,6 @@
     events: {
       "click button#createAnotherProject": "navigateToProjectCreator",
       "click button#deleteProject": "deleteProject",
-      "click button#updateProject": "updateProject",
       "keyup input#projectName": "updateProjectNameAsUserType"
     },
     initialize: function() {
@@ -132,9 +131,10 @@
       var projectName;
       console.log("key down");
       projectName = $('#projectName').val();
-      return this.model.set({
+      this.model.set({
         name: projectName
       });
+      return this.model.save();
     },
     deleteProject: function() {
       var self;
@@ -142,15 +142,6 @@
       return this.model.destroy({
         success: function(model, res) {
           return self.$el.html("<div class=\"alert alert-success span4\">\n	Succesfully Deleted Project\n<br /><br />\n<p><button class=\"btn btn-primary\">Create Another Project</button></p>\n</div>");
-        }
-      });
-    },
-    updateProject: function() {
-      var self;
-      self = this;
-      return this.model.save({}, {
-        success: function(err, res) {
-          return console.log(res);
         }
       });
     },
