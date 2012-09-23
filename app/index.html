@@ -132,16 +132,17 @@
 		<script type="text/template" id="tpl-edit-project">
 			<div class="row-fluid">
 				<div class="span4">
-					<form>
+					<div>
 					  <legend>Edit Project</legend>
 					  <label for"projectID">Project ID</label>
 					  <input id="projectID" type="text" value="<%= _id %>" class="span12" disabled>
 					  <label for"projectName">Project Name</label>
 					  <input id="projectName" type="text" value="<%= name %>" class="span12" required></input>
 						<span class="help-block alert">Project name must be unique and not blank</span>
+						<button type="submit" class="btn-small btn-success" id="updateProject">Update Project</button>
 						<button type="submit" class="btn-small btn-danger" id="deleteProject">Delete Project</button>
 						<button type="submit" class="btn-small btn-info" id="createAnotherProject">Create Project</button>
-					</form>
+					</div>
 				</div>	
 			</div>
 		</script>
@@ -161,13 +162,13 @@
         <script src="scripts/vendor/lodash/lodash.min.js"></script>
         <script src="scripts/vendor/backbone/backbone-min.js"></script>
         <script src="scripts/main.js"></script>
-        <script src="scripts/views/application-view.js"></script>
-				<script src="scripts/views/admin-view.js"></script>
-        <script src="scripts/models/application-model.js"></script>
-				<script src="scripts/models/project-model.js"></script>
-        <script src="scripts/collections/application-collection.js"></script>
-				<script src="scripts/collections/project-collection.js"></script>
-        <script src="scripts/routes/app-router.js"></script>
+        <script src="scripts/application-view.js"></script>
+				<script src="scripts/admin-view.js"></script>
+        <script src="scripts/application-model.js"></script>
+				<script src="scripts/project-model.js"></script>
+        <script src="scripts/application-collection.js"></script>
+				<script src="scripts/project-collection.js"></script>
+        <script src="scripts/app-router.js"></script>
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

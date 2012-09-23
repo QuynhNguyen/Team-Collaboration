@@ -116,7 +116,8 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
     "click button#createAnotherProject": "navigateToProjectCreator",
     "click button#deleteProject": "deleteProject",
     "keyup input#projectName": "updateProjectNameAsUserType",
-    "mouseleave input#projectName": "saveProject"
+    "click button#updateProject": "saveProject",
+    "keypress input#projectName": "saveProjectOnEnter"
   },
   initialize: function() {
     this.$el.unbind();
@@ -126,10 +127,12 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   navigateToProjectCreator: function() {
     return window.location.reload();
   },
-  updateProjectNameAsUserType: function() {
+  updateProjectNameAsUserType: function(event) {
     var projectName;
     projectName = $('#projectName').val().trim();
-    $('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank");
+    if (event.keyCode === !13) {
+      $('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank");
+    }
     return this.model.set({
       name: projectName
     }, {
@@ -145,13 +148,18 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   saveProject: function() {
     return this.model.save({}, {
       success: function() {
-        return $('.alert').addClass('alert-success').text("Project name has been updated");
+        return $('.alert').removeClass("alert-error").addClass('alert-success').text("Project name has been updated");
       },
       error: function(model, err) {
         console.log(err);
         return $('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error);
       }
     });
+  },
+  saveProjectOnEnter: function(event) {
+    if (event.keyCode === 13) {
+      return this.saveProject();
+    }
   },
   deleteProject: function() {
     var self;

@@ -133,7 +133,8 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		"click button#createAnotherProject": "navigateToProjectCreator"
 		"click button#deleteProject": "deleteProject"
 		"keyup input#projectName": "updateProjectNameAsUserType"
-		"mouseleave input#projectName": "saveProject"
+		"click button#updateProject": "saveProject"
+		"keypress input#projectName": "saveProjectOnEnter"
 	}
 	
 	initialize: ->
@@ -145,10 +146,11 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 	navigateToProjectCreator: ->
 		window.location.reload()
 		
-	updateProjectNameAsUserType: ->
+	updateProjectNameAsUserType: (event) ->
 		
 		projectName = $('#projectName').val().trim()
-		$('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank")
+		if event.keyCode is not 13
+			$('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank")
 		this.model.set(
 			{name: projectName}
 			success: () ->
@@ -162,11 +164,14 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		this.model.save(
 			{}
 			success: () ->
-				$('.alert').addClass('alert-success').text("Project name has been updated")
+				$('.alert').removeClass("alert-error").addClass('alert-success').text("Project name has been updated")
 			error: (model, err) ->
 				console.log(err)
 				$('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error)
 		)
+		
+	saveProjectOnEnter: (event) ->
+		this.saveProject() if event.keyCode is 13
 	
 	deleteProject: ->
 		self = this
