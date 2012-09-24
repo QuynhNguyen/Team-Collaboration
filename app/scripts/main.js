@@ -6,7 +6,7 @@ window.TeamCollaboration = {
   Routers: {},
   init: function() {
     this.Routers.router = new TeamCollaboration.Router();
-		Backbone.history.start();
+    Backbone.history.start();
   }
 };
 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      var params = {};
+      var queryString = location.hash.substring(1);
+      var regex = /([^&=]+)=([^&]*)/g;
+      var m, accessToken;
+      
+      while (m = regex.exec(queryString)) {
+        params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+      }
+
+      accessToken = params['access_token'];
+      
+      if(accessToken === null || accessToken === undefined){
+        window.location = "/404.html"; //Invalid Token
+      }else{
+        console.log("pass");
+        console.log(accessToken);
+      }
+
+    </script>
+  </head>
+</html>
