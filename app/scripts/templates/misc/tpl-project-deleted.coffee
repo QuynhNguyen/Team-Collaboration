@@ -3,7 +3,7 @@ document.write """
 		<div class="alert alert-success span4">
 			Succesfully Deleted Project
 		<br /><br />
-		<p><a href="/#admin/project-management" class="btn btn-primary" id="project-deleted">Create Another Project</a></p>
+		<p><button class="btn btn-primary" id="project-deleted">Create Another Project</button></p>
 		</div>
 	</script>
 """
