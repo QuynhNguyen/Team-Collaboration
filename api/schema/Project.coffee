@@ -11,24 +11,23 @@ class Project
 		
 		
   save: (res) =>
-    @Project.find({name:@name}).exec( 
-      (err, projectFound) =>
-        if projectFound.length > 0
-          res.contentType ='json'
-          res.send(404, {error: "#{@name} is already existed."})
+    @Project.find({name:@name}).exec( (err, projectFound) =>
+      if projectFound.length > 0
+        res.contentType ='json'
+        res.send(404, {error: "#{@name} is already existed."})
+        @db.close()
+      else
+        @project.save (err, proj) =>
+          if err   
+            res.contentType = 'json'
+            res.send(404, {error: 'project name must be unique and not empty'})
+          else 
+            console.log("saved project")
+            res.contentType = 'json'
+            res.send(
+            	proj
+            )
           @db.close()
-        else
-          @project.save (err, proj) =>
-            if err   
-              res.contentType = 'json'
-              res.send(404, {error: 'project name must be unique and not empty'})
-            else 
-              console.log("saved project")
-              res.contentType = 'json'
-              res.send(
-              	proj
-              )
-            @db.close()
     )
 
 				
@@ -47,7 +46,7 @@ class Project
         res.contentType = 'json'
         res.send(200, project)		
       @db.close()
-		)
+    )
 		
   deleteProject: (res, projectID) =>
     @Project.findByIdAndRemove(projectID, =>
