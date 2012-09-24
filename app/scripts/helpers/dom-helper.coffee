@@ -1,3 +1,4 @@
-clearElement: (el) ->
-	$(el).unbind()
-	$(el).close()
+class DOMHelper
+	@clearElement: (el) ->
+		$(el).unbind()
+		$(el).empty()

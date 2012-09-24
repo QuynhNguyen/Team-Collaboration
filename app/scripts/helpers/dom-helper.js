@@ -1,7 +1,14 @@
+var DOMHelper;
 
-({
-  clearElement: function(el) {
+DOMHelper = (function() {
+
+  function DOMHelper() {}
+
+  DOMHelper.clearElement = function(el) {
     $(el).unbind();
-    return $(el).close();
-  }
-});
+    return $(el).empty();
+  };
+
+  return DOMHelper;
+
+})();

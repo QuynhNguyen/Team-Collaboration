@@ -5,8 +5,7 @@ TeamCollaboration.ProjectManagementMain = Backbone.View.extend({
     "click button#createProject": "createProject"
   },
   initialize: function() {
-    this.$el.unbind();
-    return this.$el.empty();
+    return DOMHelper.clearElement(this.el);
   },
   template: _.template($('#tpl-admin-project-management-main').html()),
   createProject: function() {
@@ -39,8 +38,7 @@ TeamCollaboration.ProjectListView = Backbone.View.extend({
   },
   template: _.template($('#tpl-admin-project-management-sidebar').html()),
   initialize: function() {
-    this.$el.unbind();
-    this.$el.empty();
+    DOMHelper.clearElement(this.el);
     this.$el.html(this.template());
     this.collection.on("reset", this.render, this);
     return this.collection.on("add", this.addProjectToListView, this);
@@ -94,8 +92,7 @@ TeamCollaboration.EditProjectView = Backbone.View.extend({
     "keypress input#projectName": "saveProjectOnEnter"
   },
   initialize: function() {
-    this.$el.unbind();
-    return this.$el.empty();
+    return DOMHelper.clearElement(this.el);
   },
   template: _.template($('#tpl-edit-project').html()),
   navigateToProjectCreator: function() {

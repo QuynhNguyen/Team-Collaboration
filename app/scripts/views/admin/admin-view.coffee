@@ -6,11 +6,9 @@ TeamCollaboration.AdminMain = Backbone.View.extend(
 	template: _.template($('#tpl-admin-main').html())
 	
 	initialize: ->
-		this.$el.unbind()
-		this.$el.empty()
+		DOMHelper.clearElement(this.el)
 
 	render: (e) ->
-		console.log("test")
 		this.$el.html(this.template())
 )
 
@@ -21,8 +19,7 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend(
 	template: _.template($('#tpl-admin-sidebar').html())
 	
 	initialize: ->
-		this.$el.unbind()
-		this.$el.empty()
+		DOMHelper.clearElement(this.el)
 	
 	render: (e) ->
 		this.$el.html(this.template())
