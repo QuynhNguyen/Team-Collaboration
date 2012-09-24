@@ -1,35 +1,34 @@
 TeamCollaboration.Router = Backbone.Router.extend(
 	
 	routes:
-		"": "frontpageView"
-		"admin": "adminView"
-		"admin/project-management": "adminProjectManagementView"
-		
-	initialize: ->
-		this.projectCollection = new TeamCollaboration.ProjectCollection()
+		"": "renderFrontpageView"
+		"admin": "renderAdminView"
+		"admin/project-management": "renderProjectManagementView"
+
 	
 	## Global Method ##
 	createProjectManagementSideBar: ->
 		if this.projectManagementSideBar is undefined
+			this.projectCollection = new TeamCollaboration.ProjectCollection()
 			this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({collection:this.projectCollection})
 			this.ProjectManagementSideBar.render()
-			this.projectCollection.fetchIfEmpty()
+			this.projectCollection.fetch()
+			
 		
 	## Front Page ##
-	frontpageView: ->
+	renderFrontpageView: ->
 		this.createProjectManagementSideBar()
-		
-		
+
 	## Admin Page ##
-	adminView: ->
+	renderAdminView: ->
 		this.adminSideBar = new TeamCollaboration.AdminSideBar()
 		this.adminMain = new TeamCollaboration.AdminMain()
 		this.adminMain.render()
 		this.adminSideBar.render()
 		
-	adminProjectManagementView: ->
+	renderProjectManagementView: ->
+		this.createProjectManagementSideBar()
 		this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({collection:this.projectCollection})
 		this.projectManagementMain.render()
-		this.createProjectManagementSideBar()
-	
+
 )

@@ -1,36 +1,34 @@
 
 TeamCollaboration.Router = Backbone.Router.extend({
   routes: {
-    "": "frontpageView",
-    "admin": "adminView",
-    "admin/project-management": "adminProjectManagementView"
-  },
-  initialize: function() {
-    return this.projectCollection = new TeamCollaboration.ProjectCollection();
+    "": "renderFrontpageView",
+    "admin": "renderAdminView",
+    "admin/project-management": "renderProjectManagementView"
   },
   createProjectManagementSideBar: function() {
     if (this.projectManagementSideBar === void 0) {
+      this.projectCollection = new TeamCollaboration.ProjectCollection();
       this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({
         collection: this.projectCollection
       });
       this.ProjectManagementSideBar.render();
-      return this.projectCollection.fetchIfEmpty();
+      return this.projectCollection.fetch();
     }
   },
-  frontpageView: function() {
+  renderFrontpageView: function() {
     return this.createProjectManagementSideBar();
   },
-  adminView: function() {
+  renderAdminView: function() {
     this.adminSideBar = new TeamCollaboration.AdminSideBar();
     this.adminMain = new TeamCollaboration.AdminMain();
     this.adminMain.render();
     return this.adminSideBar.render();
   },
-  adminProjectManagementView: function() {
+  renderProjectManagementView: function() {
+    this.createProjectManagementSideBar();
     this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({
       collection: this.projectCollection
     });
-    this.projectManagementMain.render();
-    return this.createProjectManagementSideBar();
+    return this.projectManagementMain.render();
   }
 });

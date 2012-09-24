@@ -23,7 +23,6 @@ TeamCollaboration.ProjectManagementMain = Backbone.View.extend({
         return $('#projectName').val("");
       },
       error: function(model, err) {
-        console.log(err);
         return $('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error);
       }
     });

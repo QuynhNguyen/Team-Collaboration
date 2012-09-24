@@ -22,7 +22,6 @@ TeamCollaboration.ProjectManagementMain = Backbone.View.extend(
 				$('.alert').addClass('alert-success').text("#{projectName} has been created")
 				$('#projectName').val("")
 			error: (model, err) ->
-				console.log(err)
 				$('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error)
 		)
 	
