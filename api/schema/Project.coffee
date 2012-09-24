@@ -12,22 +12,22 @@ class Project
 		
 	save: (res) =>
 		@Project.find({name:@name}).exec( (err, projectFound) =>
-				if projectFound.length > 0
-					res.contentType ='json'
-					res.send(404, {error: "#{@name} is already existed."})
-					@db.close()
-				else
-					@project.save (err, proj) =>
-						if err   
-							res.contentType = 'json'
-							res.send(404, {error: 'project name must be unique and not empty'})
-						else 
-							console.log("saved project")
-							res.contentType = 'json'
-							res.send(
-								proj
-							)
-						@db.close()
+    		if projectFound.length > 0
+    			res.contentType ='json'
+    			res.send(404, {error: "#{@name} is already existed."})
+    			@db.close()
+    		else
+    			@project.save (err, proj) =>
+    				if err   
+    					res.contentType = 'json'
+    					res.send(404, {error: 'project name must be unique and not empty'})
+    				else 
+    					console.log("saved project")
+    					res.contentType = 'json'
+    					res.send(
+    						proj
+    					)
+    				@db.close()
 		)
 
 				
