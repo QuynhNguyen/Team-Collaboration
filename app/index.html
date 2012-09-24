@@ -5,7 +5,7 @@
     <title>Modern Team Collaboration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Quynh Nguyen">
 
     <!-- Le styles -->
     <link href="styles/bootstrap/bootstrap.css" rel="stylesheet">
@@ -81,31 +81,7 @@
       </footer>
 
     </div><!--/.fluid-container-->
-		
-		<script type="text/template" id="tpl-frontpage-sidebar">
-   	 	<li class="nav-header">Resources</li>
-			<li class="divider"></li>
-	    <li class="active"><a href="/">Home</a></li>
-	    <li><a href="https://github.com/QuynhNguyen/Team-Collaboration">Github Repository</a></li>
-	    <li><a href="mailto:quynhnguyen003@gmail.com">Contact Me (Quynh Nguyen)</a></li>
-		</script>
-		
-		<script type="text/template" id="tpl-admin-main">
-			<div>
-			<div class="hero-unit">
-				<h1>Admin Panel</h1>
-				<p>Select administrative task on the side bar to start</p>
-			</div>	
-			</div>
-		</script>
 	
-		
-		<script type="text/template" id="tpl-admin-sidebar">
-    	<li class="nav-header">Adminstrative Tasks</li>
-			<li class="divider"></li>
-	    <li><a href="/#admin/account-management">Account Management <i class="icon-chevron-right pull-right"></i></a></li>
-	    <li><a href="/#admin/project-management">Project Management <i class="icon-chevron-right pull-right"></i></a></li>
-		</script>
 		
 		<script type="text/template" id="tpl-admin-project-management-main">
 			<div class="row-fluid">
@@ -158,17 +134,31 @@
         <!-- Add your site or application content here -->
 
         <!-- build:js scripts/scripts.js -->
+				
+				<!-- Template -->
+				<script src="scripts/templates/admin/tpl-main.js"></script>
+				<script src="scripts/templates/admin/tpl-sidebar.js"></script>
+				
+				<!-- Vendor Scripts -->
         <script src="scripts/vendor/jquery/jquery.js"></script>
         <script src="scripts/vendor/lodash/lodash.min.js"></script>
         <script src="scripts/vendor/backbone/backbone-min.js"></script>
+				
+				<!-- Main -->
         <script src="scripts/main.js"></script>
-        <script src="scripts/application-view.js"></script>
-				<script src="scripts/admin-view.js"></script>
-        <script src="scripts/application-model.js"></script>
-				<script src="scripts/project-model.js"></script>
-        <script src="scripts/application-collection.js"></script>
-				<script src="scripts/project-collection.js"></script>
-        <script src="scripts/app-router.js"></script>
+				
+				<!-- View -->
+				<script src="scripts/views/admin-view.js"></script>
+				
+				<!-- Model -->
+				<script src="scripts/models/project-model.js"></script>
+				
+				<!-- Collection -->
+				<script src="scripts/collections/project-collection.js"></script>
+				
+				<!-- Routers -->
+        <script src="scripts/routes/app-router.js"></script>
+				
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
