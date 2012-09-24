@@ -123,15 +123,8 @@ TeamCollaboration.EditProjectView = Backbone.View.extend(
 		self = this
 		this.model.destroy(
 			success: (model, res) ->
-				self.$el.html( 
-					"""
-						<div class="alert alert-success span4">
-							Succesfully Deleted Project
-						<br /><br />
-						<p><button class="btn btn-primary">Create Another Project</button></p>
-						</div>
-					"""
-				)
+				self.$el.html(_.template($('#tpl-project-deleted').html()))
+				$('#project-deleted').click( -> self.navigateToProjectCreator() )
 		)
 		
 	render: ->
