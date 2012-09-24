@@ -1,37 +1,4 @@
-##ADMIN MAIN PAGE
-
-TeamCollaboration.AdminMain = Backbone.View.extend(
-
-	el: $('#content')
-
-	template: _.template($('#tpl-admin-main').html())
-	
-	initialize: ->
-		this.$el.unbind()
-		this.$el.empty()
-
-	render: (e) ->
-		this.$el.html(this.template())
-)
-
-TeamCollaboration.AdminSideBar = Backbone.View.extend(
-
-	el: $('#sidebar')
-
-	template: _.template($('#tpl-admin-sidebar').html())
-	
-	initialize: ->
-		this.$el.unbind()
-		this.$el.empty()
-	
-	render: (e) ->
-		this.$el.html(this.template())
-)
-
-
-##ADMIN PROJECT MANAGEMENT
-
-TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
+TeamCollaboration.ProjectManagementMain = Backbone.View.extend(
 
 	el: $('#content')
 	
@@ -41,12 +8,10 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 	initialize: ->
 		this.$el.unbind()
 		this.$el.empty()
-		
 	
 	template: _.template($('#tpl-admin-project-management-main').html())
 	
 	createProject: ->
-		$('.alert').removeClass('alert-error').text("Project name must be unique and not blank")
 		projectName = $('#projectName').val().trim()
 		this.model = new TeamCollaboration.ProjectModel()
 		self = this
@@ -54,24 +19,25 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend(
 			{name:projectName} 
 			success: (model, response) ->
 				self.collection.add(model)
+				$('.alert').addClass('alert-success').text("#{projectName} has been created")
+				$('#projectName').val("")
 			error: (model, err) ->
 				console.log(err)
 				$('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error)
 		)
-		$('#projectName').val("")
 	
 	render: (e) ->
 		this.$el.html(this.template())
-		
 ) 
 
-
-TeamCollaboration.AdminProjectListView = Backbone.View.extend(
+TeamCollaboration.ProjectListView = Backbone.View.extend(
 
 	el: $('#sidebar')
 	
 	events:
 		"click li.projectName": "renderEditProjectView"
+		
+	template: _.template($('#tpl-admin-project-management-sidebar').html())
 		
 	initialize: ->
 		this.$el.unbind()
@@ -80,45 +46,43 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		this.collection.on("reset", this.render, this)
 		this.collection.on("add", this.addProjectToListView, this)
 		
-	
 	renderEditProjectView: (e) ->
 		projectID = $(e.currentTarget).data("id")
 		project = this.collection.get(projectID)
-		this.editProjectView = new TeamCollaboration.AdminEditProjectView({model:project})
+		this.editProjectView = new TeamCollaboration.EditProjectView({model:project})
 		this.editProjectView.render()
 	
-	template: _.template($('#tpl-admin-project-management-sidebar').html())
-	
-	
 	addProjectToListView: (project) -> 
-		console.log("WTFzz")
-		this.projectView = new TeamCollaboration.AdminProjectView({model:project})
+		this.projectView = new TeamCollaboration.ProjectView({model:project})
 		this.$el.append(this.projectView.render())
 		
-		
-
 	render: ->
 		this.collection.forEach(this.addProjectToListView, this)
 		return this
-		
-		
 )
 
-TeamCollaboration.Test = Backbone.View.extend(
+TeamCollaboration.ProjectView = Backbone.View.extend(
+
+	model: TeamCollaboration.ProjectModel
+	
+	tagName: 'li'
+	className: 'projectName'
 
 	initialize: ->
-		console.log(this.test)
-		console.log(this.collection)
+		this.model.on('remove', this.remove, this)
+		this.model.on('change', this.render, this)
 		
-	render: ->
-		console.log(this.test)
-		console.log(this.collection)
-		console.log('hi')
+	remove: ->
+		this.$el.remove()
 
+	template: _.template($('#tpl-project').html())
+
+	render: (e) ->
+		this.$el.attr("data-id", this.model.id)
+		return this.$el.html(this.template(this.model.toJSON()))
 )
 
-
-TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
+TeamCollaboration.EditProjectView = Backbone.View.extend(
 
 	el: $('#content')
 	
@@ -139,17 +103,14 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 	navigateToProjectCreator: ->
 		window.location.reload()
 		
-	updateProjectNameAsUserType: (event) ->
+	saveProjectOnEnter: (event) ->
+		this.saveProject() if event.keyCode is 13
 		
+	updateProjectNameAsUserType: (event) ->
 		projectName = $('#projectName').val().trim()
-		if event.keyCode is not 13
-			$('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank")
 		this.model.set(
 			{name: projectName}
-			success: () ->
-				console.log("success")
 			error: (model, errorMsg) ->
-				console.log('test me yes')
 				$('.alert').addClass('alert-error').text($.parseJSON(errorMsg.responseText).error)
 		)
 		
@@ -159,13 +120,9 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 			success: () ->
 				$('.alert').removeClass("alert-error").addClass('alert-success').text("Project name has been updated")
 			error: (model, err) ->
-				console.log(err)
 				$('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error)
 		)
 		
-	saveProjectOnEnter: (event) ->
-		this.saveProject() if event.keyCode is 13
-	
 	deleteProject: ->
 		self = this
 		this.model.destroy(
@@ -184,27 +141,5 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 	render: ->
 		this.$el.html(this.template(this.model.toJSON()))
 		$('#projectName').focus()
-
-)
-
-TeamCollaboration.AdminProjectView = Backbone.View.extend(
-
-	model: TeamCollaboration.ProjectModel
-	
-	tagName: 'li'
-	className: 'projectName'
-
-	initialize: ->
-		this.model.on('remove', this.remove, this)
-		this.model.on('change', this.render, this)
-		
-	remove: ->
-		this.$el.remove()
-
-	template: _.template($('#tpl-project').html())
-
-	render: (e) ->
-		this.$el.attr("data-id", this.model.id)
-		return this.$el.html(this.template(this.model.toJSON()))
 )
 

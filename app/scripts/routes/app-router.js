@@ -8,12 +8,17 @@ TeamCollaboration.Router = Backbone.Router.extend({
   initialize: function() {
     return this.projectCollection = new TeamCollaboration.ProjectCollection();
   },
+  createProjectManagementSideBar: function() {
+    if (this.projectManagementSideBar === void 0) {
+      this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({
+        collection: this.projectCollection
+      });
+      this.ProjectManagementSideBar.render();
+      return this.projectCollection.fetchIfEmpty();
+    }
+  },
   frontpageView: function() {
-    this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({
-      collection: this.projectCollection
-    });
-    this.adminProjectManagementSideBar.render();
-    return this.projectCollection.fetchIfEmpty();
+    return this.createProjectManagementSideBar();
   },
   adminView: function() {
     this.adminSideBar = new TeamCollaboration.AdminSideBar();
@@ -22,14 +27,10 @@ TeamCollaboration.Router = Backbone.Router.extend({
     return this.adminSideBar.render();
   },
   adminProjectManagementView: function() {
-    this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({
+    this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({
       collection: this.projectCollection
     });
-    this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({
-      collection: this.projectCollection
-    });
-    this.projectCollection.fetchIfEmpty();
-    this.adminProjectManagementMain.render();
-    return this.adminProjectManagementSideBar.render();
+    this.projectManagementMain.render();
+    return this.createProjectManagementSideBar();
   }
 });

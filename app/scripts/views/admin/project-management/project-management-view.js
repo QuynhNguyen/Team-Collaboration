@@ -1,29 +1,5 @@
 
-TeamCollaboration.AdminMain = Backbone.View.extend({
-  el: $('#content'),
-  template: _.template($('#tpl-admin-main').html()),
-  initialize: function() {
-    this.$el.unbind();
-    return this.$el.empty();
-  },
-  render: function(e) {
-    return this.$el.html(this.template());
-  }
-});
-
-TeamCollaboration.AdminSideBar = Backbone.View.extend({
-  el: $('#sidebar'),
-  template: _.template($('#tpl-admin-sidebar').html()),
-  initialize: function() {
-    this.$el.unbind();
-    return this.$el.empty();
-  },
-  render: function(e) {
-    return this.$el.html(this.template());
-  }
-});
-
-TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
+TeamCollaboration.ProjectManagementMain = Backbone.View.extend({
   el: $('#content'),
   events: {
     "click button#createProject": "createProject"
@@ -35,33 +11,34 @@ TeamCollaboration.AdminProjectManagementMain = Backbone.View.extend({
   template: _.template($('#tpl-admin-project-management-main').html()),
   createProject: function() {
     var projectName, self;
-    $('.alert').removeClass('alert-error').text("Project name must be unique and not blank");
     projectName = $('#projectName').val().trim();
     this.model = new TeamCollaboration.ProjectModel();
     self = this;
-    this.model.save({
+    return this.model.save({
       name: projectName
     }, {
       success: function(model, response) {
-        return self.collection.add(model);
+        self.collection.add(model);
+        $('.alert').addClass('alert-success').text("" + projectName + " has been created");
+        return $('#projectName').val("");
       },
       error: function(model, err) {
         console.log(err);
         return $('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error);
       }
     });
-    return $('#projectName').val("");
   },
   render: function(e) {
     return this.$el.html(this.template());
   }
 });
 
-TeamCollaboration.AdminProjectListView = Backbone.View.extend({
+TeamCollaboration.ProjectListView = Backbone.View.extend({
   el: $('#sidebar'),
   events: {
     "click li.projectName": "renderEditProjectView"
   },
+  template: _.template($('#tpl-admin-project-management-sidebar').html()),
   initialize: function() {
     this.$el.unbind();
     this.$el.empty();
@@ -73,15 +50,13 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend({
     var project, projectID;
     projectID = $(e.currentTarget).data("id");
     project = this.collection.get(projectID);
-    this.editProjectView = new TeamCollaboration.AdminEditProjectView({
+    this.editProjectView = new TeamCollaboration.EditProjectView({
       model: project
     });
     return this.editProjectView.render();
   },
-  template: _.template($('#tpl-admin-project-management-sidebar').html()),
   addProjectToListView: function(project) {
-    console.log("WTFzz");
-    this.projectView = new TeamCollaboration.AdminProjectView({
+    this.projectView = new TeamCollaboration.ProjectView({
       model: project
     });
     return this.$el.append(this.projectView.render());
@@ -92,19 +67,25 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend({
   }
 });
 
-TeamCollaboration.Test = Backbone.View.extend({
+TeamCollaboration.ProjectView = Backbone.View.extend({
+  model: TeamCollaboration.ProjectModel,
+  tagName: 'li',
+  className: 'projectName',
   initialize: function() {
-    console.log(this.test);
-    return console.log(this.collection);
+    this.model.on('remove', this.remove, this);
+    return this.model.on('change', this.render, this);
   },
-  render: function() {
-    console.log(this.test);
-    console.log(this.collection);
-    return console.log('hi');
+  remove: function() {
+    return this.$el.remove();
+  },
+  template: _.template($('#tpl-project').html()),
+  render: function(e) {
+    this.$el.attr("data-id", this.model.id);
+    return this.$el.html(this.template(this.model.toJSON()));
   }
 });
 
-TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
+TeamCollaboration.EditProjectView = Backbone.View.extend({
   el: $('#content'),
   events: {
     "click button#createAnotherProject": "navigateToProjectCreator",
@@ -121,20 +102,18 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   navigateToProjectCreator: function() {
     return window.location.reload();
   },
+  saveProjectOnEnter: function(event) {
+    if (event.keyCode === 13) {
+      return this.saveProject();
+    }
+  },
   updateProjectNameAsUserType: function(event) {
     var projectName;
     projectName = $('#projectName').val().trim();
-    if (event.keyCode === !13) {
-      $('.alert').removeClass('alert-error alert-success').text("Project name must be unique and not blank");
-    }
     return this.model.set({
       name: projectName
     }, {
-      success: function() {
-        return console.log("success");
-      },
       error: function(model, errorMsg) {
-        console.log('test me yes');
         return $('.alert').addClass('alert-error').text($.parseJSON(errorMsg.responseText).error);
       }
     });
@@ -145,15 +124,9 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
         return $('.alert').removeClass("alert-error").addClass('alert-success').text("Project name has been updated");
       },
       error: function(model, err) {
-        console.log(err);
         return $('.alert').addClass('alert-error').text(jQuery.parseJSON(err.responseText).error);
       }
     });
-  },
-  saveProjectOnEnter: function(event) {
-    if (event.keyCode === 13) {
-      return this.saveProject();
-    }
   },
   deleteProject: function() {
     var self;
@@ -167,23 +140,5 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     return $('#projectName').focus();
-  }
-});
-
-TeamCollaboration.AdminProjectView = Backbone.View.extend({
-  model: TeamCollaboration.ProjectModel,
-  tagName: 'li',
-  className: 'projectName',
-  initialize: function() {
-    this.model.on('remove', this.remove, this);
-    return this.model.on('change', this.render, this);
-  },
-  remove: function() {
-    return this.$el.remove();
-  },
-  template: _.template($('#tpl-project').html()),
-  render: function(e) {
-    this.$el.attr("data-id", this.model.id);
-    return this.$el.html(this.template(this.model.toJSON()));
   }
 });
