@@ -4,13 +4,18 @@ TeamCollaboration.ProjectManagementMain = Backbone.View.extend(
 	
 	events: 
 		"click button#createProject": "createProject"
+		"keypress input#projectName": "saveProjectOnEnter"
 		
 	initialize: ->
 		DOMHelper.clearElement(this.el)
 	
 	template: _.template($('#tpl-admin-project-management-main').html())
 	
+	saveProjectOnEnter: (event) ->
+		this.createProject() if event.keyCode is 13
+
 	createProject: ->
+		$('.alert').removeClass('alert-success alert-error') ## Reset alert class
 		projectName = $('#projectName').val().trim()
 		this.model = new TeamCollaboration.ProjectModel()
 		self = this

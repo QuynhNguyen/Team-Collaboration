@@ -2,14 +2,21 @@
 TeamCollaboration.ProjectManagementMain = Backbone.View.extend({
   el: $('#content'),
   events: {
-    "click button#createProject": "createProject"
+    "click button#createProject": "createProject",
+    "keypress input#projectName": "saveProjectOnEnter"
   },
   initialize: function() {
     return DOMHelper.clearElement(this.el);
   },
   template: _.template($('#tpl-admin-project-management-main').html()),
+  saveProjectOnEnter: function(event) {
+    if (event.keyCode === 13) {
+      return this.createProject();
+    }
+  },
   createProject: function() {
     var projectName, self;
+    $('.alert').removeClass('alert-success alert-error');
     projectName = $('#projectName').val().trim();
     this.model = new TeamCollaboration.ProjectModel();
     self = this;
