@@ -104,26 +104,19 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend(
 		
 )
 
-TeamCollaboration.AdminProjectView = Backbone.View.extend(
-
-	model: TeamCollaboration.ProjectModel
-	
-	tagName: 'li'
-	className: 'projectName'
+TeamCollaboration.Test = Backbone.View.extend(
 
 	initialize: ->
-		this.model.on('remove', this.remove, this)
-		this.model.on('change', this.render, this)
+		console.log(this.test)
+		console.log(this.collection)
 		
-	remove: ->
-		this.$el.remove()
+	render: ->
+		console.log(this.test)
+		console.log(this.collection)
+		console.log('hi')
 
-	template: _.template($('#tpl-project').html())
-
-	render: (e) ->
-		this.$el.attr("data-id", this.model.id)
-		return this.$el.html(this.template(this.model.toJSON()))
 )
+
 
 TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 
@@ -193,3 +186,25 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend(
 		$('#projectName').focus()
 
 )
+
+TeamCollaboration.AdminProjectView = Backbone.View.extend(
+
+	model: TeamCollaboration.ProjectModel
+	
+	tagName: 'li'
+	className: 'projectName'
+
+	initialize: ->
+		this.model.on('remove', this.remove, this)
+		this.model.on('change', this.render, this)
+		
+	remove: ->
+		this.$el.remove()
+
+	template: _.template($('#tpl-project').html())
+
+	render: (e) ->
+		this.$el.attr("data-id", this.model.id)
+		return this.$el.html(this.template(this.model.toJSON()))
+)
+

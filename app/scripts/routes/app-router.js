@@ -3,39 +3,32 @@ TeamCollaboration.Router = Backbone.Router.extend({
   routes: {
     "": "frontpageView",
     "admin": "adminView",
-    "admin/project-management": "adminProjectManagementView",
-    "admin/project-management/edit": "adminProjectManagementView"
+    "admin/project-management": "adminProjectManagementView"
   },
-  initialize: function() {},
+  initialize: function() {
+    return this.projectCollection = new TeamCollaboration.ProjectCollection();
+  },
   frontpageView: function() {
-    this.projectCollection = new TeamCollaboration.ProjectCollection();
     this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({
       collection: this.projectCollection
     });
-    this.projectCollection.fetch();
-    return this.adminProjectManagementSideBar.render();
-  },
-  renderAdminMain: function() {
-    this.adminMain = new TeamCollaboration.AdminMain();
-    return this.adminMain.render();
-  },
-  renderAdminSideBar: function() {
-    this.adminSideBar = new TeamCollaboration.AdminSideBar();
-    return this.adminSideBar.render();
+    this.adminProjectManagementSideBar.render();
+    return this.projectCollection.fetchIfEmpty();
   },
   adminView: function() {
-    this.renderAdminMain();
-    return this.renderAdminSideBar();
+    this.adminSideBar = new TeamCollaboration.AdminSideBar();
+    this.adminMain = new TeamCollaboration.AdminMain();
+    this.adminMain.render();
+    return this.adminSideBar.render();
   },
   adminProjectManagementView: function() {
-    this.projectCollection = new TeamCollaboration.ProjectCollection();
     this.adminProjectManagementMain = new TeamCollaboration.AdminProjectManagementMain({
       collection: this.projectCollection
     });
     this.adminProjectManagementSideBar = new TeamCollaboration.AdminProjectListView({
       collection: this.projectCollection
     });
-    this.projectCollection.fetch();
+    this.projectCollection.fetchIfEmpty();
     this.adminProjectManagementMain.render();
     return this.adminProjectManagementSideBar.render();
   }

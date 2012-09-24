@@ -92,21 +92,15 @@ TeamCollaboration.AdminProjectListView = Backbone.View.extend({
   }
 });
 
-TeamCollaboration.AdminProjectView = Backbone.View.extend({
-  model: TeamCollaboration.ProjectModel,
-  tagName: 'li',
-  className: 'projectName',
+TeamCollaboration.Test = Backbone.View.extend({
   initialize: function() {
-    this.model.on('remove', this.remove, this);
-    return this.model.on('change', this.render, this);
+    console.log(this.test);
+    return console.log(this.collection);
   },
-  remove: function() {
-    return this.$el.remove();
-  },
-  template: _.template($('#tpl-project').html()),
-  render: function(e) {
-    this.$el.attr("data-id", this.model.id);
-    return this.$el.html(this.template(this.model.toJSON()));
+  render: function() {
+    console.log(this.test);
+    console.log(this.collection);
+    return console.log('hi');
   }
 });
 
@@ -173,5 +167,23 @@ TeamCollaboration.AdminEditProjectView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template(this.model.toJSON()));
     return $('#projectName').focus();
+  }
+});
+
+TeamCollaboration.AdminProjectView = Backbone.View.extend({
+  model: TeamCollaboration.ProjectModel,
+  tagName: 'li',
+  className: 'projectName',
+  initialize: function() {
+    this.model.on('remove', this.remove, this);
+    return this.model.on('change', this.render, this);
+  },
+  remove: function() {
+    return this.$el.remove();
+  },
+  template: _.template($('#tpl-project').html()),
+  render: function(e) {
+    this.$el.attr("data-id", this.model.id);
+    return this.$el.html(this.template(this.model.toJSON()));
   }
 });
