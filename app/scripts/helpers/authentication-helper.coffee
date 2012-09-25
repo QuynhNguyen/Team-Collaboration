@@ -2,10 +2,26 @@ class AuthenticationHelper
   constructor: (@user) ->
     
   @doAuthentication: (user) ->
-    if user.hasAccessToken
-      console.log("has access token")
+    accessToken = @readCookie("accessToken")
+    user.set({accessToken:accessToken})
+    if user.hasValidAccessToken()
+      ##Fetch user information and store inside user object
+      userInfoUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=#{accessToken}"
+      console.log(userInfoUrl)
+      user.url = userInfoUrl
+      console.log(user.get("url")) 
+      user.fetch(
+        success: (model, response) ->
+          console.log("success")
+          console.log(response)
+          console.log(user.get("name"))
+        error: (model, response) ->
+          console.log(response)
+      )
+
     else
       @createLoginLink()
+      console.log("false")
     
   @createLoginLink: ->
     this.googleOauthConfig = new GoogleOAuth2Config()

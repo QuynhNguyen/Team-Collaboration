@@ -7,10 +7,29 @@ AuthenticationHelper = (function() {
   }
 
   AuthenticationHelper.doAuthentication = function(user) {
-    if (user.hasAccessToken) {
-      return console.log("has access token");
+    var accessToken, userInfoUrl;
+    accessToken = this.readCookie("accessToken");
+    user.set({
+      accessToken: accessToken
+    });
+    if (user.hasValidAccessToken()) {
+      userInfoUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + accessToken;
+      console.log(userInfoUrl);
+      user.url = userInfoUrl;
+      console.log(user.get("url"));
+      return user.fetch({
+        success: function(model, response) {
+          console.log("success");
+          console.log(response);
+          return console.log(user.get("name"));
+        },
+        error: function(model, response) {
+          return console.log(response);
+        }
+      });
     } else {
-      return this.createLoginLink();
+      this.createLoginLink();
+      return console.log("false");
     }
   };
 

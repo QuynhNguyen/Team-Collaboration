@@ -3,12 +3,12 @@ TeamCollaboration.UserModel = Backbone.Model.extend({
   defaults: {
     name: "guest",
     picture: "",
-    isLoggedIn: false
+    link: "",
+    isLoggedIn: false,
+    accessToken: null
   },
-  hasAccessToken: function() {
-    var accessToken;
-    accessToken = AuthenticationHelper.readCookie("accessToken");
-    if (accessToken != null) {
+  hasValidAccessToken: function() {
+    if (this.get("accessToken") != null) {
       return true;
     } else {
       return false;
