@@ -34,8 +34,7 @@
   getProjectList = function(req, res, next) {
     var project;
     project = new projectSchema.Project();
-    project.getProjectList(res);
-    return console.log("get project list");
+    return project.getProjectList(res);
   };
 
   getProjectByName = function(req, res, next) {

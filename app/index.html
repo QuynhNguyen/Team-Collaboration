@@ -41,8 +41,8 @@
           </a>
           <a class="brand" href="/#">Modern Team Collaboration</a>
           <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right" id="#authentication">
-                <a href="https://accounts.google.com/o/oauth2/auth?scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&state=%2Fprofile&redirect_uri=http://localhost:3501/oauth2callback.html&response_type=token&client_id=66486550334.apps.googleusercontent.com&approval_prompt=force">Click me</a>
+            <p class="navbar-text pull-right" id="authentication">
+                <a class="btn btn-primary" style="margin-bottom: 5px;" href="">Login</a>
                 <!--  Welcome Back <a href="#" class="navbar-link">#{Username}</a> -->
             </p>
             <ul class="nav">
@@ -90,9 +90,13 @@
         <!-- Add your site or application content here -->
 
         <!-- build:js scripts/scripts.js -->
-				
+
+    <!-- Config -->
+    <script src="scripts/config/google-oauth2-config.js"></script>
+    
 		<!-- Helper -->
 		<script src="scripts/helpers/dom-helper.js"></script>
+    <script src="scripts/helpers/authentication-helper.js"></script>
 				
 		<!-- Template -->
 		<script src="scripts/templates/admin/tpl-main.js"></script>
@@ -104,10 +108,10 @@
 		<script src="scripts/templates/admin/project-management/tpl-project-deleted.js"></script>
 				
 		<!-- Vendor Scripts -->
-		<script src="scripts/vendor/jquery/jquery.js"></script>
-		<script src="scripts/vendor/lodash/lodash.min.js"></script>
-		<script src="scripts/vendor/backbone/backbone-min.js"></script>
-		<script src="scripts/vendor/bootstrap/bootstrap.min.js"></script>
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/lodash/lodash.min.js"></script>
+		<script src="vendor/backbone/backbone-min.js"></script>
+		<script src="vendor/bootstrap/bootstrap.min.js"></script>
 				
 		<!-- Main -->
 		<script src="scripts/main.js"></script>
@@ -118,6 +122,7 @@
 				
 		<!-- Model -->
 		<script src="scripts/models/project-model.js"></script>
+    <script src="scripts/models/user-model.js"></script>
 				
 		<!-- Collection -->
 		<script src="scripts/collections/project-collection.js"></script>

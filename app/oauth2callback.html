@@ -7,17 +7,22 @@
       var regex = /([^&=]+)=([^&]*)/g;
       var m, accessToken;
       
+      //Paring callback string into object
       while (m = regex.exec(queryString)) {
         params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
       }
 
       accessToken = params['access_token'];
+      state = encodeURIComponent(params['state']);
       
       if(accessToken === null || accessToken === undefined){
         window.location = "/404.html"; //Invalid Token
       }else{
-        console.log("pass");
-        console.log(accessToken);
+        //Store access token into browser cookie
+        var cookie_expire = 60*60*24*30
+        document.cookie = "accessToken=" + accessToken + "; max-age=" + cookie_expire;
+        //Redirect user to appropriate view in order to persist user information
+        window.location = "/#login/" + accessToken + "/" + state;
       }
 
     </script>

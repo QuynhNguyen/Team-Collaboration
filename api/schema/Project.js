@@ -72,23 +72,20 @@
       var _this = this;
       return this.Project.find().sort('field name').exec(function(err, projects) {
         res.contentType = 'json';
-        res.send(projects);
+        res.send(200, projects);
         return _this.db.close();
       });
     };
 
     Project.prototype.getProject = function(res, projectName) {
       var _this = this;
-      console.log(projectName);
       return this.Project.find({
         name: projectName
       }).exec(function(err, project) {
-        console.log(project.length);
         if (project.length <= 0) {
           res.send(404, {
             error: "No Project Found Under The Name Of " + projectName
           });
-          res.end();
         } else {
           res.contentType = 'json';
           res.send(200, project);
@@ -100,7 +97,6 @@
     Project.prototype.deleteProject = function(res, projectID) {
       var _this = this;
       return this.Project.findByIdAndRemove(projectID, function() {
-        console.log("deleting shit");
         res.contentType = 'json';
         res.send(200, {
           success: "Delete Project Request Executed"
@@ -114,7 +110,6 @@
       return this.Project.find({
         name: projectName
       }).exec(function(err, projectCollection) {
-        console.log(projectCollection.length);
         if (projectCollection.length > 0) {
           res.send(404, {
             error: "" + projectName + " is already existed"

@@ -3,7 +3,12 @@ TeamCollaboration.Router = Backbone.Router.extend({
   routes: {
     "": "renderFrontpageView",
     "admin": "renderAdminView",
-    "admin/project-management": "renderProjectManagementView"
+    "admin/project-management": "renderProjectManagementView",
+    "login/:accessToken/:state": "doAuthentication"
+  },
+  initialize: function() {
+    this.user = new TeamCollaboration.UserModel();
+    return AuthenticationHelper.doAuthentication(this.user);
   },
   createProjectManagementSideBar: function() {
     if (this.projectManagementSideBar === void 0) {
@@ -15,6 +20,7 @@ TeamCollaboration.Router = Backbone.Router.extend({
       return this.projectCollection.fetch();
     }
   },
+  doAuthentication: function(accessToken, state) {},
   renderFrontpageView: function() {
     return this.createProjectManagementSideBar();
   },

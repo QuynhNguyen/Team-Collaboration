@@ -4,8 +4,12 @@ TeamCollaboration.Router = Backbone.Router.extend(
     "": "renderFrontpageView"
     "admin": "renderAdminView"
     "admin/project-management": "renderProjectManagementView"
-
-	
+    "login/:accessToken/:state": "doAuthentication"
+  
+  initialize: ->
+    this.user = new TeamCollaboration.UserModel();
+    AuthenticationHelper.doAuthentication(this.user)
+    
 	## Global Method ##
   createProjectManagementSideBar: ->
     if this.projectManagementSideBar is undefined
@@ -13,6 +17,12 @@ TeamCollaboration.Router = Backbone.Router.extend(
       this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({collection:this.projectCollection})
       this.ProjectManagementSideBar.render()
       this.projectCollection.fetch()
+  
+  doAuthentication: (accessToken, state) ->
+    ##console.log("test")
+    ##console.log(accessToken)
+    ##console.log(decodeURIComponent(state))
+    ##console.log(AuthenticationHelper.readCookie("accessToken"));
 			
 		
 	## Front Page ##

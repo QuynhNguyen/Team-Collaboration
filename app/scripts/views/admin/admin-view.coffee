@@ -1,4 +1,3 @@
-
 TeamCollaboration.AdminMain = Backbone.View.extend(
 
 	el: $('#content')
