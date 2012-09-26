@@ -7,7 +7,10 @@ TeamCollaboration.Router = Backbone.Router.extend(
     "login/:accessToken/:state": "doAuthentication"
   
   initialize: ->
+    ## Global Authentication View ##
     this.user = new TeamCollaboration.UserModel();
+    this.loginView = new TeamCollaboration.LoginView({model:this.user})
+    this.loginView.render()
     AuthenticationHelper.doAuthentication(this.user)
     
 	## Global Method ##
@@ -19,14 +22,13 @@ TeamCollaboration.Router = Backbone.Router.extend(
       this.projectCollection.fetch()
   
   doAuthentication: (accessToken, state) ->
-    ##console.log("test")
-    ##console.log(accessToken)
-    ##console.log(decodeURIComponent(state))
-    ##console.log(AuthenticationHelper.readCookie("accessToken"));
+    console.log(decodeURIComponent(state))
+    @navigate(decodeURIComponent(state))
 			
 		
 	## Front Page ##
   renderFrontpageView: ->
+    console.log(this.user)
     this.createProjectManagementSideBar()
 
 	## Admin Page ##

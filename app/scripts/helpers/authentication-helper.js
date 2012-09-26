@@ -2,9 +2,7 @@ var AuthenticationHelper;
 
 AuthenticationHelper = (function() {
 
-  function AuthenticationHelper(user) {
-    this.user = user;
-  }
+  function AuthenticationHelper() {}
 
   AuthenticationHelper.doAuthentication = function(user) {
     var accessToken, userInfoUrl;
@@ -13,30 +11,15 @@ AuthenticationHelper = (function() {
       accessToken: accessToken
     });
     if (user.hasValidAccessToken()) {
-      userInfoUrl = "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + accessToken;
-      console.log(userInfoUrl);
+      userInfoUrl = GoogleOAuth2Config.createGetUserInfoURL(accessToken);
       user.url = userInfoUrl;
-      console.log(user.get("url"));
-      return user.fetch({
-        success: function(model, response) {
-          console.log("success");
-          console.log(response);
-          return console.log(user.get("name"));
-        },
-        error: function(model, response) {
-          return console.log(response);
-        }
-      });
-    } else {
-      this.createLoginLink();
-      return console.log("false");
+      return user.trigger('url:changed');
     }
   };
 
   AuthenticationHelper.createLoginLink = function() {
     var tokenRequestURL;
-    this.googleOauthConfig = new GoogleOAuth2Config();
-    tokenRequestURL = this.googleOauthConfig.createRequestURL();
+    tokenRequestURL = GoogleOAuth2Config.createRequestURL();
     return $('#authentication>a').attr('href', tokenRequestURL);
   };
 
@@ -54,6 +37,10 @@ AuthenticationHelper = (function() {
       }
     }
     return null;
+  };
+
+  AuthenticationHelper.deleteCookie = function(name) {
+    return document.cookie = "" + name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT";
   };
 
   return AuthenticationHelper;

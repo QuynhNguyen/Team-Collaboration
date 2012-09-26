@@ -8,6 +8,10 @@ TeamCollaboration.Router = Backbone.Router.extend({
   },
   initialize: function() {
     this.user = new TeamCollaboration.UserModel();
+    this.loginView = new TeamCollaboration.LoginView({
+      model: this.user
+    });
+    this.loginView.render();
     return AuthenticationHelper.doAuthentication(this.user);
   },
   createProjectManagementSideBar: function() {
@@ -20,8 +24,12 @@ TeamCollaboration.Router = Backbone.Router.extend({
       return this.projectCollection.fetch();
     }
   },
-  doAuthentication: function(accessToken, state) {},
+  doAuthentication: function(accessToken, state) {
+    console.log(decodeURIComponent(state));
+    return this.navigate(decodeURIComponent(state));
+  },
   renderFrontpageView: function() {
+    console.log(this.user);
     return this.createProjectManagementSideBar();
   },
   renderAdminView: function() {

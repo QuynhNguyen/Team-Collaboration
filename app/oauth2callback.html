@@ -22,7 +22,8 @@
         var cookie_expire = 60*60*24*30
         document.cookie = "accessToken=" + accessToken + "; max-age=" + cookie_expire;
         //Redirect user to appropriate view in order to persist user information
-        window.location = "/#login/" + accessToken + "/" + state;
+        //window.location = "/#login/" + accessToken + "/" + state;
+        window.location = "/";
       }
 
     </script>
