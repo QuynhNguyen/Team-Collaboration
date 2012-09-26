@@ -14,8 +14,8 @@ Simple yet beauty and easy to use modern team collaboration workflow.
         * Project Management
         * Flexible Layout To Fit All Screen Resolution
     * 0.0.2
-        * User Authentication - ***In Progress***
-        * Welcome Page Layout - *Not Started*
+        * User Authentication - ***Done And Debugging***
+        * Welcome Page Layout - ***In Progress***
         
 ###Feature Videos
 

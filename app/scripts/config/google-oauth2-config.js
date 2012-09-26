@@ -18,7 +18,7 @@ GoogleOAuth2Config = (function() {
 
   GoogleOAuth2Config.STATE = encodeURIComponent("http://localhost:3501/#/");
 
-  GoogleOAuth2Config.OPTION_ARGUMENT = "";
+  GoogleOAuth2Config.OPTION_ARGUMENT = "&approval_prompt=auto";
 
   GoogleOAuth2Config.createRequestURL = function() {
     var requestURL;
