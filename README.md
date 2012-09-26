@@ -26,7 +26,7 @@ Simple yet beauty and easy to use modern team collaboration workflow.
 ###Front End Technology
 
     * Backbone.js
-        * Twitter Bootstrap
+    * Twitter Bootstrap
 
 ###Back End Technology
 
