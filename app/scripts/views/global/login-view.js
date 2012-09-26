@@ -24,11 +24,10 @@ TeamCollaboration.LoginView = Backbone.View.extend({
   },
   fetchUserInfo: function(e) {
     var self;
-    console.log("chaning");
     self = this;
     return this.model.fetch({
       error: function(model, response) {
-        return console.log("Fail to fetch " + model + " due to " + response);
+        return window.location = GoogleOAuth2Config.createRequestURL();
       },
       success: function(model, response) {
         return self.render();

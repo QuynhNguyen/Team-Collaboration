@@ -24,11 +24,11 @@ TeamCollaboration.LoginView = Backbone.View.extend(
     this.$el.html(this.welcome_template(this.model.toJSON()))
     
   fetchUserInfo: (e) ->
-    console.log("chaning")
     self = this
     this.model.fetch(
       error: (model, response) ->
-        console.log("Fail to fetch #{model} due to #{response}")
+        ## Redirect User To Google OAuth API To Get New Access Token ##
+        window.location = GoogleOAuth2Config.createRequestURL()
       success: (model, response) ->
         self.render()
     )

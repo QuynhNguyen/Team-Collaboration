@@ -1,10 +1,12 @@
 module.exports = function( grunt ) {
   'use strict';
+  grunt.loadNpmTasks('grunt-consolidate-css');
   //
   // Grunt configuration:
   //
   // https://github.com/cowboy/grunt/blob/master/docs/getting_started.md
   //
+  
   grunt.initConfig({
 
     // Project configuration
@@ -22,7 +24,8 @@ module.exports = function( grunt ) {
         dest: ''
       }
     },
-
+    
+    
     // compile .scss/.sass to .css using Compass
     compass: {
       dist: {

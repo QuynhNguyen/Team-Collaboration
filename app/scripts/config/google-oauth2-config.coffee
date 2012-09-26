@@ -7,7 +7,7 @@ class GoogleOAuth2Config
   @REDIRECT_URI = encodeURIComponent("http://localhost:3501/oauth2callback.html")
   @SCOPE = encodeURIComponent("https://www.googleapis.com/auth/userinfo.profile")
   @STATE = encodeURIComponent("http://localhost:3501/#/")
-  @OPTION_ARGUMENT = "&approval_prompt=force"
+  @OPTION_ARGUMENT = ""
     
   @createRequestURL: =>
     requestURL = "#{@END_POINT}?scope=#{@SCOPE}&state=#{@STATE}&client_id=#{@CLIENT_ID}&response_type=#{@RESPONSE_TYPE}&redirect_uri=#{@REDIRECT_URI}#{@OPTION_ARGUMENT}"
