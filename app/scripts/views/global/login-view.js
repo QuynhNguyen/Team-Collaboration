@@ -9,16 +9,7 @@ TeamCollaboration.LoginView = Backbone.View.extend({
   initialize: function() {
     var self;
     self = this;
-    return this.model.on('url:changed', function() {
-      return self.model.fetch({
-        error: function(model, response) {
-          return console.log("Fail to fetch " + model + " due to " + response);
-        },
-        success: function(model, response) {
-          return self.render();
-        }
-      });
-    });
+    return this.model.on('url:changed', this.fetchUserInfo, this);
   },
   logout: function() {
     AuthenticationHelper.deleteCookie("accessToken");
@@ -29,7 +20,6 @@ TeamCollaboration.LoginView = Backbone.View.extend({
     return AuthenticationHelper.createLoginLink();
   },
   renderWelcome: function() {
-    console.log(this.model);
     return this.$el.html(this.welcome_template(this.model.toJSON()));
   },
   fetchUserInfo: function(e) {

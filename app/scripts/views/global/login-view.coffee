@@ -10,16 +10,7 @@ TeamCollaboration.LoginView = Backbone.View.extend(
   
   initialize: ->
     self = this
-    this.model.on(
-      'url:changed',
-      ->
-        self.model.fetch(
-          error: (model, response) ->
-            console.log("Fail to fetch #{model} due to #{response}")
-          success: (model, response) ->
-            self.render()
-        )
-    )
+    this.model.on('url:changed', @fetchUserInfo, this)
     
   logout: ->
     AuthenticationHelper.deleteCookie("accessToken")
@@ -30,7 +21,6 @@ TeamCollaboration.LoginView = Backbone.View.extend(
     AuthenticationHelper.createLoginLink()
     
   renderWelcome: ->
-    console.log(this.model)
     this.$el.html(this.welcome_template(this.model.toJSON()))
     
   fetchUserInfo: (e) ->
@@ -42,10 +32,11 @@ TeamCollaboration.LoginView = Backbone.View.extend(
       success: (model, response) ->
         self.render()
     )
-  
+    
   render: ->
     if this.model.hasValidAccessToken()
       @renderWelcome()
     else
       @renderLogin()
+      
 )
