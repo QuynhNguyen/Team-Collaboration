@@ -37,7 +37,8 @@ TeamCollaboration.LoginView = Backbone.View.extend({
   },
   render: function() {
     if (this.model.hasValidAccessToken()) {
-      return this.renderWelcome();
+      this.renderWelcome();
+      return $('#logout').tooltip();
     } else {
       return this.renderLogin();
     }

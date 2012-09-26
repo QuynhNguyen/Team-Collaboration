@@ -36,6 +36,8 @@ TeamCollaboration.LoginView = Backbone.View.extend(
   render: ->
     if this.model.hasValidAccessToken()
       @renderWelcome()
+      ## Add Logout Tool Tip ##
+      $('#logout').tooltip() 
     else
       @renderLogin()
       
