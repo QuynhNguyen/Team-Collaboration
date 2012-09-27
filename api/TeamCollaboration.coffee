@@ -44,6 +44,7 @@ server.get('/projects/:name', getProjectByName)
 server.del('/projects/:id', deleteProject)
 server.put('/projects/:id', updateProject)
 
-server.listen(8080, -> 
+var port = process.env.PORT || 8080;
+server.listen(port, -> 
   console.log("listening to server #{server.name}, #{server.url}");
 )
