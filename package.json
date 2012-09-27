@@ -1,6 +1,6 @@
 {
   "author": "Quynh Nguyen",
-  "name": "Modern Team Collaboration",
+  "name": "ModernTeamCollaboration",
   "version": "0.0.1",
   "dependencies": {
     "restify": "1.4.x",
