@@ -69,7 +69,8 @@
 
   server.put('/projects/:id', updateProject);
 
-  server.listen(8080, function() {
+  var port = process.env.PORT || 8080
+  server.listen(port, function() {
     return console.log("listening to server " + server.name + ", " + server.url);
   });
 
