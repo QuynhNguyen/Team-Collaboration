@@ -1,6 +1,5 @@
 module.exports = function( grunt ) {
   'use strict';
-  grunt.loadNpmTasks('grunt-consolidate-css');
   //
   // Grunt configuration:
   //
