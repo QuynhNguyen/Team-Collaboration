@@ -12,10 +12,11 @@ Simple yet beauty and easy to use modern team collaboration workflow.
 
     * 0.0.1
         * Project Management
-        * Flexible Layout To Fit All Screen Resolution
+        * Flexible Layout To Fit All Screens Resolution
     * 0.0.2
         * User Authentication - ***Done And Debugging***
-        * Welcome Page Layout - ***In Progress***
+        * Global Configuration File For Easy Deployment and Testing - *** In Progress ***
+        * Front Page Project Listing Mockup - ***Not Started***
         
 ###Feature Videos
 
