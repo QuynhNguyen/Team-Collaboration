@@ -1,4 +1,4 @@
-{
+GlobalConfig = {
   "API":{
     "server": "http://217.23.7.78",
     "port": "8080"
