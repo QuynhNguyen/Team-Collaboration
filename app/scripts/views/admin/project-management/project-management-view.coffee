@@ -1,4 +1,4 @@
-TeamCollaboration.ProjectManagementMain = Backbone.View.extend(
+class TeamCollaboration.ProjectManagementMain extends Backbone.View
 
   el: $('#content')
 	
@@ -31,9 +31,9 @@ TeamCollaboration.ProjectManagementMain = Backbone.View.extend(
 	
   render: (e) ->
     this.$el.html(this.template())
-) 
+ 
 
-TeamCollaboration.ProjectListView = Backbone.View.extend(
+class TeamCollaboration.ProjectListView extends Backbone.View
 
   el: $('#sidebar')
 	
@@ -61,9 +61,9 @@ TeamCollaboration.ProjectListView = Backbone.View.extend(
   render: ->
     this.collection.forEach(this.addProjectToListView, this)
     return this
-)
 
-TeamCollaboration.ProjectView = Backbone.View.extend(
+
+class TeamCollaboration.ProjectView extends Backbone.View
 
   model: TeamCollaboration.ProjectModel
 	
@@ -82,9 +82,8 @@ TeamCollaboration.ProjectView = Backbone.View.extend(
   render: (e) ->
     this.$el.attr("data-id", this.model.id)
     return this.$el.html(this.template(this.model.toJSON()))
-)
 
-TeamCollaboration.EditProjectView = Backbone.View.extend(
+class TeamCollaboration.EditProjectView extends Backbone.View
 
   el: $('#content')
 	
@@ -135,5 +134,5 @@ TeamCollaboration.EditProjectView = Backbone.View.extend(
   render: ->
     this.$el.html(this.template(this.model.toJSON()))
     $('#projectName').focus()
-)
+
 

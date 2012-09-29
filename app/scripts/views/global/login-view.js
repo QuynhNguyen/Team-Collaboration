@@ -1,28 +1,45 @@
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-TeamCollaboration.LoginView = Backbone.View.extend({
-  events: {
+TeamCollaboration.LoginView = (function(_super) {
+
+  __extends(LoginView, _super);
+
+  function LoginView() {
+    return LoginView.__super__.constructor.apply(this, arguments);
+  }
+
+  LoginView.prototype.events = {
     "click #logout": "logout"
-  },
-  el: $('#authentication'),
-  login_template: _.template($('#tpl-login-btn').html()),
-  welcome_template: _.template($('#tpl-welcome-user').html()),
-  initialize: function() {
+  };
+
+  LoginView.prototype.el = $('#authentication');
+
+  LoginView.prototype.login_template = _.template($('#tpl-login-btn').html());
+
+  LoginView.prototype.welcome_template = _.template($('#tpl-welcome-user').html());
+
+  LoginView.prototype.initialize = function() {
     var self;
     self = this;
     return this.model.on('url:changed', this.fetchUserInfo, this);
-  },
-  logout: function() {
+  };
+
+  LoginView.prototype.logout = function() {
     AuthenticationHelper.deleteCookie("accessToken");
     return window.location = "/";
-  },
-  renderLogin: function() {
+  };
+
+  LoginView.prototype.renderLogin = function() {
     this.$el.html(this.login_template());
     return AuthenticationHelper.createLoginLink();
-  },
-  renderWelcome: function() {
+  };
+
+  LoginView.prototype.renderWelcome = function() {
     return this.$el.html(this.welcome_template(this.model.toJSON()));
-  },
-  fetchUserInfo: function(e) {
+  };
+
+  LoginView.prototype.fetchUserInfo = function(e) {
     var self;
     self = this;
     return this.model.fetch({
@@ -33,13 +50,17 @@ TeamCollaboration.LoginView = Backbone.View.extend({
         return self.render();
       }
     });
-  },
-  render: function() {
+  };
+
+  LoginView.prototype.render = function() {
     if (this.model.hasValidAccessToken()) {
       this.renderWelcome();
       return $('#logout').tooltip();
     } else {
       return this.renderLogin();
     }
-  }
-});
+  };
+
+  return LoginView;
+
+})(Backbone.View);

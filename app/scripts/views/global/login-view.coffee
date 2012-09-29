@@ -1,4 +1,4 @@
-TeamCollaboration.LoginView = Backbone.View.extend(
+class TeamCollaboration.LoginView extends Backbone.View
 
   events: 
     "click #logout": "logout"
@@ -40,5 +40,3 @@ TeamCollaboration.LoginView = Backbone.View.extend(
       $('#logout').tooltip() 
     else
       @renderLogin()
-      
-)

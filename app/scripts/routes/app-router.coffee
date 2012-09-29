@@ -1,4 +1,4 @@
-TeamCollaboration.Router = Backbone.Router.extend(
+class TeamCollaboration.Router extends Backbone.Router
 	
   routes:
     "": "renderFrontpageView"
@@ -43,4 +43,3 @@ TeamCollaboration.Router = Backbone.Router.extend(
     this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({collection:this.projectCollection})
     this.projectManagementMain.render()
 
-)

@@ -1,4 +1,4 @@
-TeamCollaboration.UserModel = Backbone.Model.extend(
+class TeamCollaboration.UserModel extends Backbone.Model
   
   defaults:
     name: "guest"
@@ -9,5 +9,3 @@ TeamCollaboration.UserModel = Backbone.Model.extend(
     
   hasValidAccessToken: ->
     if @get("accessToken")? then true else false
-
-)

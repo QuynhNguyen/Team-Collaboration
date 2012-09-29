@@ -1,20 +1,31 @@
+var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-TeamCollaboration.Router = Backbone.Router.extend({
-  routes: {
+TeamCollaboration.Router = (function(_super) {
+
+  __extends(Router, _super);
+
+  function Router() {
+    return Router.__super__.constructor.apply(this, arguments);
+  }
+
+  Router.prototype.routes = {
     "": "renderFrontpageView",
     "admin": "renderAdminView",
     "admin/project-management": "renderProjectManagementView",
     "login/:accessToken/:state": "doAuthentication"
-  },
-  initialize: function() {
+  };
+
+  Router.prototype.initialize = function() {
     this.user = new TeamCollaboration.UserModel();
     this.loginView = new TeamCollaboration.LoginView({
       model: this.user
     });
     this.loginView.render();
     return AuthenticationHelper.doAuthentication(this.user);
-  },
-  createProjectManagementSideBar: function() {
+  };
+
+  Router.prototype.createProjectManagementSideBar = function() {
     if (this.projectManagementSideBar === void 0) {
       this.projectCollection = new TeamCollaboration.ProjectCollection();
       this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({
@@ -23,26 +34,33 @@ TeamCollaboration.Router = Backbone.Router.extend({
       this.ProjectManagementSideBar.render();
       return this.projectCollection.fetch();
     }
-  },
-  doAuthentication: function(accessToken, state) {
+  };
+
+  Router.prototype.doAuthentication = function(accessToken, state) {
     console.log(decodeURIComponent(state));
     return this.navigate(decodeURIComponent(state));
-  },
-  renderFrontpageView: function() {
+  };
+
+  Router.prototype.renderFrontpageView = function() {
     console.log(this.user);
     return this.createProjectManagementSideBar();
-  },
-  renderAdminView: function() {
+  };
+
+  Router.prototype.renderAdminView = function() {
     this.adminSideBar = new TeamCollaboration.AdminSideBar();
     this.adminMain = new TeamCollaboration.AdminMain();
     this.adminMain.render();
     return this.adminSideBar.render();
-  },
-  renderProjectManagementView: function() {
+  };
+
+  Router.prototype.renderProjectManagementView = function() {
     this.createProjectManagementSideBar();
     this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({
       collection: this.projectCollection
     });
     return this.projectManagementMain.render();
-  }
-});
+  };
+
+  return Router;
+
+})(Backbone.Router);

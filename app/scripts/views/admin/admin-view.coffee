@@ -1,4 +1,4 @@
-TeamCollaboration.AdminMain = Backbone.View.extend(
+class TeamCollaboration.AdminMain extends Backbone.View
 
 	el: $('#content')
 
@@ -9,9 +9,9 @@ TeamCollaboration.AdminMain = Backbone.View.extend(
 
 	render: (e) ->
 		this.$el.html(this.template())
-)
 
-TeamCollaboration.AdminSideBar = Backbone.View.extend(
+
+class TeamCollaboration.AdminSideBar extends Backbone.View
 
 	el: $('#sidebar')
 
@@ -22,7 +22,6 @@ TeamCollaboration.AdminSideBar = Backbone.View.extend(
 	
 	render: (e) ->
 		this.$el.html(this.template())
-)
 
 
 
