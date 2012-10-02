@@ -66,17 +66,40 @@ TeamCollaboration.ProjectListView = (function(_super) {
 
   ProjectListView.prototype.el = $('#sidebar');
 
+  ProjectListView.prototype.path = "";
+
   ProjectListView.prototype.events = {
-    "click li.projectName": "renderEditProjectView"
+    "click li.projectName": "renderProjectView"
   };
 
   ProjectListView.prototype.template = _.template($('#tpl-admin-project-management-sidebar').html());
 
-  ProjectListView.prototype.initialize = function() {
+  ProjectListView.prototype.initialize = function(options) {
     DOMHelper.clearElement(this.el);
     this.$el.html(this.template());
     this.collection.on("reset", this.render, this);
-    return this.collection.on("add", this.addProjectToListView, this);
+    this.collection.on("add", this.addProjectToListView, this);
+    return this.path = options.path;
+  };
+
+  ProjectListView.prototype.isFrontPage = function() {
+    if (this.path === "") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  ProjectListView.prototype.renderProjectView = function(e) {
+    if (this.isFrontPage()) {
+      return this.renderMainPageProjectView();
+    } else {
+      return this.renderEditProjectView(e);
+    }
+  };
+
+  ProjectListView.prototype.renderMainPageProjectView = function() {
+    return console.log("render main page");
   };
 
   ProjectListView.prototype.renderEditProjectView = function(e) {

@@ -37,17 +37,32 @@ class TeamCollaboration.ProjectListView extends Backbone.View
 
   el: $('#sidebar')
 	
+  path: ""
+  
   events:
-    "click li.projectName": "renderEditProjectView"
+    "click li.projectName": "renderProjectView"
 		
   template: _.template($('#tpl-admin-project-management-sidebar').html())
 		
-  initialize: ->
+  initialize: (options) ->
     DOMHelper.clearElement(this.el)
     this.$el.html(this.template())
     this.collection.on("reset", this.render, this)
     this.collection.on("add", this.addProjectToListView, this)
-		
+    this.path = options.path
+    
+  isFrontPage: ->
+    if this.path is "" then true else false
+    
+  renderProjectView: (e) ->
+    if this.isFrontPage()
+      this.renderMainPageProjectView()
+    else
+      this.renderEditProjectView(e)
+      
+  renderMainPageProjectView: ->
+    console.log("render main page")
+  
   renderEditProjectView: (e) ->
     projectID = $(e.currentTarget).data("id")
     project = this.collection.get(projectID)

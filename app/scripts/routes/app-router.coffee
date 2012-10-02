@@ -14,10 +14,10 @@ class TeamCollaboration.Router extends Backbone.Router
     AuthenticationHelper.doAuthentication(this.user)
     
 	## Global Method ##
-  createProjectManagementSideBar: ->
+  createProjectManagementSideBar: (path) ->
     if this.projectManagementSideBar is undefined
       this.projectCollection = new TeamCollaboration.ProjectCollection()
-      this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({collection:this.projectCollection})
+      this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({collection:this.projectCollection, path:path})
       this.ProjectManagementSideBar.render()
       this.projectCollection.fetch()
   
@@ -27,9 +27,8 @@ class TeamCollaboration.Router extends Backbone.Router
 			
 		
 	## Front Page ##
-  renderFrontpageView: ->
-    console.log(this.user)
-    this.createProjectManagementSideBar()
+  renderFrontpageView:  ->
+    this.createProjectManagementSideBar(Backbone.history.fragment)
 
 	## Admin Page ##
   renderAdminView: ->
@@ -39,7 +38,7 @@ class TeamCollaboration.Router extends Backbone.Router
     this.adminSideBar.render()
 		
   renderProjectManagementView: ->
-    this.createProjectManagementSideBar()
+    this.createProjectManagementSideBar(Backbone.history.fragment)
     this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({collection:this.projectCollection})
     this.projectManagementMain.render()
 

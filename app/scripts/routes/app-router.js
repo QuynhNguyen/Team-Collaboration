@@ -25,11 +25,12 @@ TeamCollaboration.Router = (function(_super) {
     return AuthenticationHelper.doAuthentication(this.user);
   };
 
-  Router.prototype.createProjectManagementSideBar = function() {
+  Router.prototype.createProjectManagementSideBar = function(path) {
     if (this.projectManagementSideBar === void 0) {
       this.projectCollection = new TeamCollaboration.ProjectCollection();
       this.ProjectManagementSideBar = new TeamCollaboration.ProjectListView({
-        collection: this.projectCollection
+        collection: this.projectCollection,
+        path: path
       });
       this.ProjectManagementSideBar.render();
       return this.projectCollection.fetch();
@@ -42,8 +43,7 @@ TeamCollaboration.Router = (function(_super) {
   };
 
   Router.prototype.renderFrontpageView = function() {
-    console.log(this.user);
-    return this.createProjectManagementSideBar();
+    return this.createProjectManagementSideBar(Backbone.history.fragment);
   };
 
   Router.prototype.renderAdminView = function() {
@@ -54,7 +54,7 @@ TeamCollaboration.Router = (function(_super) {
   };
 
   Router.prototype.renderProjectManagementView = function() {
-    this.createProjectManagementSideBar();
+    this.createProjectManagementSideBar(Backbone.history.fragment);
     this.projectManagementMain = new TeamCollaboration.ProjectManagementMain({
       collection: this.projectCollection
     });
