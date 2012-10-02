@@ -14,9 +14,12 @@ Simple yet beauty and easy to use modern team collaboration workflow.
         * Project Management
         * Flexible Layout To Fit All Screens Resolution
     * 0.0.2
-        * User Authentication - ***Done And Debugging***
-        * Global Configuration File For Easy Deployment and Testing - *** In Progress ***
-        * Front Page Project Listing Mockup - ***Not Started***
+        * User Authentication - ***Done***
+        * Global Configuration File For Easy Deployment and Testing - ***Done***
+        * Front Page Project Listing Mockup - ***In Progress***
+    * 0.0.3
+        * Integrate application with websocket for real time notification and increase server performance
+        
         
 ###Feature Videos
 
