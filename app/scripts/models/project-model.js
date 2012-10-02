@@ -11,7 +11,7 @@ TeamCollaboration.ProjectModel = (function(_super) {
 
   ProjectModel.prototype.idAttribute = "_id";
 
-  ProjectModel.prototype.urlRoot = 'http://217.23.7.78:8080/projects';
+  ProjectModel.prototype.urlRoot = "" + GlobalConfig.API.server + ":" + GlobalConfig.API.port + "/projects";
 
   ProjectModel.prototype.validate = function(attrs) {
     if (attrs.name === null || attrs.name === "") {

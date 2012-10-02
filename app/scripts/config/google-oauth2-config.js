@@ -10,13 +10,13 @@ GoogleOAuth2Config = (function() {
 
   GoogleOAuth2Config.RESPONSE_TYPE = "token";
 
-  GoogleOAuth2Config.CLIENT_ID = "66486550334.apps.googleusercontent.com";
+  GoogleOAuth2Config.CLIENT_ID = "" + GlobalConfig.GoogleOauth.client_id;
 
-  GoogleOAuth2Config.REDIRECT_URI = encodeURIComponent("http://localhost:3501/oauth2callback.html");
+  GoogleOAuth2Config.REDIRECT_URI = encodeURIComponent("" + GlobalConfig.FrontEnd.server + ":" + GlobalConfig.FrontEnd.port + "/oauth2callback.html");
 
   GoogleOAuth2Config.SCOPE = encodeURIComponent("https://www.googleapis.com/auth/userinfo.profile");
 
-  GoogleOAuth2Config.STATE = encodeURIComponent("http://localhost:3501/#/");
+  GoogleOAuth2Config.STATE = encodeURIComponent("");
 
   GoogleOAuth2Config.OPTION_ARGUMENT = "&approval_prompt=auto";
 

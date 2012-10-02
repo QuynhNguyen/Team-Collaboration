@@ -11,7 +11,7 @@ TeamCollaboration.ProjectCollection = (function(_super) {
 
   ProjectCollection.prototype.model = TeamCollaboration.ProjectModel;
 
-  ProjectCollection.prototype.url = "http://217.23.7.78:8080/projects";
+  ProjectCollection.prototype.url = "" + GlobalConfig.API.server + ":" + GlobalConfig.API.port + "/projects";
 
   return ProjectCollection;
 
